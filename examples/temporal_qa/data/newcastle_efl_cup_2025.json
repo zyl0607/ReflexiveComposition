@@ -1,0 +1,20 @@
+{
+  "entities": [
+    { "type": "Team", "name": "Newcastle United" },
+    { "type": "Team", "name": "Liverpool" },
+    { "type": "Trophy", "name": "EFL Cup" },
+    { "type": "Match", "name": "2025 EFL Cup Final" },
+    { "type": "Player", "name": "Alexander Isak" },
+    { "type": "Player", "name": "Bruno Guimarães" },
+    { "type": "Date", "name": "2025-03-16" }
+  ],
+  "relations": [
+    { "subject": "Newcastle United", "predicate": "Won", "object": "EFL Cup" },
+    { "subject": "Newcastle United", "predicate": "PlayedIn", "object": "2025 EFL Cup Final" },
+    { "subject": "Liverpool", "predicate": "PlayedIn", "object": "2025 EFL Cup Final" },
+    { "subject": "2025 EFL Cup Final", "predicate": "OccurredOn", "object": "2025-03-16" },
+    { "subject": "Alexander Isak", "predicate": "Scored", "object": "2025 EFL Cup Final" },
+    { "subject": "Bruno Guimarães", "predicate": "Scored", "object": "2025 EFL Cup Final" },
+    { "subject": "EFL Cup", "predicate": "EndedDrought", "object": "Newcastle United" }
+  ]
+}

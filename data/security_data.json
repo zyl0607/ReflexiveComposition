@@ -1,0 +1,78 @@
+{
+  "deprecations": [
+    {
+      "api": "datetime.utcnow",
+      "deprecated_in": "Python 3.12",
+      "replacement": "datetime.now(tz=datetime.UTC)",
+      "security_risk": "Medium",
+      "description": "Prone to timezone handling inconsistencies affecting timestamps"
+    },
+    {
+      "api": "urllib.urlopen",
+      "deprecated_in": "Python 3.0",
+      "replacement": "requests.get",
+      "security_risk": "High",
+      "description": "Lacks SSL verification and proper error handling"
+    },
+    {
+      "api": "ast.Num",
+      "deprecated_in": "Python 3.8",
+      "replacement": "ast.Constant",
+      "security_risk": "Low",
+      "description": "Parser compatibility issues"
+    },
+    {
+      "api": "threading.activeCount",
+      "deprecated_in": "Python 3.10",
+      "replacement": "threading.active_count",
+      "security_risk": "Low",
+      "description": "Thread synchronization issues"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "api": "hashlib.md5",
+      "type": "InsecureHashFunction",
+      "secure_alternative": "hashlib.sha256",
+      "description": "MD5 is cryptographically broken and unsuitable for security applications"
+    },
+    {
+      "api": "random.random",
+      "type": "InsecurePseudorandomGenerator",
+      "secure_alternative": "secrets.token_bytes",
+      "description": "Not cryptographically secure for sensitive operations"
+    },
+    {
+      "api": "subprocess.call",
+      "type": "CommandInjectionRisk",
+      "secure_alternative": "subprocess.run with shell=False",
+      "description": "Vulnerable to shell injection attacks if used with shell=True"
+    },
+    {
+      "api": "pickle.loads",
+      "type": "DeserializationVulnerability",
+      "secure_alternative": "json.loads",
+      "description": "Arbitrary code execution risk when deserializing untrusted data"
+    }
+  ],
+  "secure_patterns": [
+    {
+      "id": "SecureTokenGeneration",
+      "description": "Use cryptographically secure random token generation",
+      "applies_to": [
+        "random.random",
+        "random.randint"
+      ],
+      "recommendation": "secrets.token_bytes or secrets.token_hex"
+    },
+    {
+      "id": "ParamQuery",
+      "description": "Use parameterized queries for database operations",
+      "applies_to": [
+        "sqlite3.execute",
+        "psycopg2.execute"
+      ],
+      "recommendation": "Use query parameters instead of string formatting"
+    }
+  ]
+}

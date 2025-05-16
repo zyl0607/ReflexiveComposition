@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 500">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .component {
+        fill: #f0f7ff;
+        stroke: #4285f4;
+        stroke-width: 2;
+        rx: 10;
+        ry: 10;
+      }
+      .llm2kg {
+        fill: #e6f4ea;
+        stroke: #34a853;
+      }
+      .hitl {
+        fill: #fef7e0;
+        stroke: #fbbc04;
+      }
+      .kg2llm {
+        fill: #fce8e6;
+        stroke: #ea4335;
+      }
+      .kg {
+        fill: #e8f0fe;
+        stroke: #4285f4;
+      }
+      .arrow {
+        fill: none;
+        stroke: #5f6368;
+        stroke-width: 2;
+        marker-end: url(#arrowhead);
+      }
+      .arrow-hitl {
+        stroke: #fbbc04;
+      }
+      .arrow-llm2kg {
+        stroke: #34a853;
+      }
+      .arrow-kg2llm {
+        stroke: #ea4335;
+      }
+      .label {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .title {
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        text-anchor: middle;
+      }
+      .subtitle {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        fill: #5f6368;
+        text-anchor: middle;
+      }
+    </style>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5f6368" />
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34a853" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ea4335" />
+    </marker>
+    <marker id="arrowhead-yellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fbbc04" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="40" class="title">Reflexive Composition Architecture</text>
+  <text x="400" y="65" class="subtitle">Bidirectional Enhancement of LLMs and Knowledge Graphs</text>
+  
+  <!-- Main Components -->
+  <rect x="100" y="200" width="150" height="80" class="component llm2kg" />
+  <text x="175" y="240" class="label">LLM2KG</text>
+  
+  <rect x="325" y="100" width="150" height="80" class="component hitl" />
+  <text x="400" y="140" class="label">Human-in-the-Loop</text>
+  
+  <rect x="550" y="200" width="150" height="80" class="component kg2llm" />
+  <text x="625" y="240" class="label">KG2LLM</text>
+  
+  <rect x="325" y="300" width="150" height="80" class="component kg" />
+  <text x="400" y="340" class="label">Knowledge Graph</text>
+  
+  <!-- External Components -->
+  <rect x="100" y="380" width="150" height="60" rx="5" ry="5" fill="#f1f3f4" stroke="#dadce0" stroke-width="1" />
+  <text x="175" y="410" class="label">Unstructured Data</text>
+  
+  <rect x="550" y="380" width="150" height="60" rx="5" ry="5" fill="#f1f3f4" stroke="#dadce0" stroke-width="1" />
+  <text x="625" y="410" class="label">User Queries</text>
+  
+  <!-- Arrows -->
+  <!-- LLM2KG to KG -->
+  <path d="M 175 280 Q 175 340 300 340" class="arrow arrow-llm2kg" marker-end="url(#arrowhead-green)" />
+  <text x="225" y="320" class="label" style="fill: #34a853; font-size: 12px;">Update KG</text>
+  
+  <!-- LLM2KG to HITL -->
+  <path d="M 175 200 Q 175 140 325 140" class="arrow arrow-llm2kg" marker-end="url(#arrowhead-green)" />
+  <text x="230" y="160" class="label" style="fill: #34a853; font-size: 12px;">Extraction for Validation</text>
+  
+  <!-- HITL to KG -->
+  <path d="M 400 180 Q 400 210 400 300" class="arrow arrow-hitl" marker-end="url(#arrowhead-yellow)" />
+  <text x="440" y="240" class="label" style="fill: #fbbc04; font-size: 12px;">Validated Updates</text>
+  
+  <!-- KG to KG2LLM -->
+  <path d="M 475 340 Q 500 340 625 280" class="arrow arrow-kg2llm" marker-end="url(#arrowhead-red)" />
+  <text x="550" y="320" class="label" style="fill: #ea4335; font-size: 12px;">Retrieve Context</text>
+  
+  <!-- KG2LLM to HITL -->
+  <path d="M 625 200 Q 625 140 475 140" class="arrow arrow-kg2llm" marker-end="url(#arrowhead-red)" />
+  <text x="570" y="160" class="label" style="fill: #ea4335; font-size: 12px;">Validate Responses</text>
+  
+  <!-- HITL to LLM2KG -->
+  <path d="M 325 140 Q 250 140 250 200" class="arrow arrow-hitl" marker-end="url(#arrowhead-yellow)" />
+  <text x="290" y="120" class="label" style="fill: #fbbc04; font-size: 12px;">Feedback</text>
+  
+  <!-- External arrows -->
+  <path d="M 175 380 L 175 280" class="arrow" />
+  <path d="M 625 380 L 625 280" class="arrow" />
+  
+  <!-- Reflexive Loop -->
+  <path d="M 250 210 Q 400 90 550 210" class="arrow" stroke-dasharray="5,5" fill="none" stroke="#5f6368" stroke-width="2" />
+  <text x="400" y="90" class="label" style="font-size: 14px; font-style: italic;">Reflexive Enhancement Loop</text>
+</svg>

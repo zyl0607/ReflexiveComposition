@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 500">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .component {
+        fill: #f0f7ff;
+        stroke: #4285f4;
+        stroke-width: 2;
+        rx: 10;
+        ry: 10;
+      }
+      .llm2kg {
+        fill: #e6f4ea;
+        stroke: #34a853;
+      }
+      .hitl {
+        fill: #fef7e0;
+        stroke: #fbbc04;
+      }
+      .kg2llm {
+        fill: #fce8e6;
+        stroke: #ea4335;
+      }
+      .kg {
+        fill: #e8f0fe;
+        stroke: #4285f4;
+      }
+      .loop-box {
+        fill: #f8f9fa;
+        stroke: #5f6368;
+        stroke-width: 1;
+        stroke-dasharray: 5,3;
+        rx: 10;
+        ry: 10;
+      }
+      .arrow {
+        fill: none;
+        stroke: #5f6368;
+        stroke-width: 2;
+        marker-end: url(#arrowhead);
+      }
+      .loop-arrow {
+        fill: none;
+        stroke: #5f6368;
+        stroke-width: 2;
+        stroke-dasharray: 5,3;
+        marker-end: url(#arrowhead);
+      }
+      .label {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .sublabel {
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .title {
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        text-anchor: middle;
+      }
+      .subtitle {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        fill: #5f6368;
+        text-anchor: middle;
+      }
+      .explanation {
+        font-family: 'Arial', sans-serif;
+        font-size: 12px;
+        fill: #5f6368;
+      }
+    </style>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5f6368" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="40" class="title">Reflexive Feedback Loops in the Framework</text>
+  <text x="400" y="65" class="subtitle">How knowledge and responses iteratively improve each other</text>
+  
+  <!-- Central Knowledge Graph -->
+  <rect x="325" y="210" width="150" height="80" class="component kg" />
+  <text x="400" y="250" class="label">Knowledge Graph</text>
+  
+  <!-- Main Components -->
+  <rect x="100" y="210" width="150" height="80" class="component llm2kg" />
+  <text x="175" y="240" class="label">LLM2KG</text>
+  <text x="175" y="260" class="sublabel">(Knowledge Extraction)</text>
+  
+  <rect x="325" y="100" width="150" height="60" class="component hitl" />
+  <text x="400" y="130" class="label">HITL Validation</text>
+  
+  <rect x="550" y="210" width="150" height="80" class="component kg2llm" />
+  <text x="625" y="240" class="label">KG2LLM</text>
+  <text x="625" y="260" class="sublabel">(Enhanced Generation)</text>
+  
+  <!-- External Elements -->
+  <rect x="100" y="350" width="150" height="50" rx="5" ry="5" fill="#f1f3f4" stroke="#dadce0" stroke-width="1" />
+  <text x="175" y="375" class="label">Source Documents</text>
+  
+  <rect x="550" y="350" width="150" height="50" rx="5" ry="5" fill="#f1f3f4" stroke="#dadce0" stroke-width="1" />
+  <text x="625" y="375" class="label">User Queries</text>
+  
+  <!-- Basic flow arrows -->
+  <path d="M 250 250 L 325 250" class="arrow" />
+  <path d="M 400 210 L 400 160" class="arrow" />
+  <path d="M 475 250 L 550 250" class="arrow" />
+  <path d="M 175 350 L 175 290" class="arrow" />
+  <path d="M 625 350 L 625 290" class="arrow" />
+  
+  <!-- Feedback Loop 1: Extraction Refinement Loop -->
+  <rect x="100" y="120" width="150" height="140" class="loop-box" />
+  <text x="175" y="135" class="sublabel" style="font-weight: bold;">Extraction Refinement Loop</text>
+  
+  <path d="M 325 120 L 250 120" class="loop-arrow" />
+  <text x="290" y="110" class="sublabel">Validator Feedback</text>
+  
+  <path d="M 175 160 L 175 210" class="loop-arrow" />
+  <text x="140" y="185" class="sublabel">Improve Extraction</text>
+  
+  <!-- Feedback Loop 2: Schema Evolution Loop -->
+  <rect x="270" y="280" width="260" height="120" class="loop-box" />
+  <text x="400" y="295" class="sublabel" style="font-weight: bold;">Schema Evolution Loop</text>
+  
+  <path d="M 175 280 Q 175 330 270 330" class="loop-arrow" />
+  <text x="220" y="320" class="sublabel">Schema Updates</text>
+  
+  <path d="M 475 290 Q 475 330 530 330" class="loop-arrow" />
+  <text x="500" y="320" class="sublabel">Schema Constraints</text>
+  
+  <!-- Feedback Loop 3: Contradiction Resolution Loop -->
+  <rect x="500" y="120" width="200" height="140" class="loop-box" />
+  <text x="600" y="135" class="sublabel" style="font-weight: bold;">Contradiction Resolution Loop</text>
+  
+  <path d="M 475 130 L 550 130" class="loop-arrow" />
+  <text x="510" y="115" class="sublabel">Validate Response</text>
+  
+  <path d="M 625 160 L 625 210" class="loop-arrow" />
+  <text x="670" y="185" class="sublabel">Improve Generation</text>
+  
+  <!-- Explanations -->
+  <text x="175" y="440" class="explanation" text-anchor="middle">
+    <tspan x="175" dy="0">1. Extraction Refinement Loop:</tspan>
+    <tspan x="175" dy="15">Validator feedback improves future</tspan>
+    <tspan x="175" dy="15">extraction quality and accuracy</tspan>
+  </text>
+  
+  <text x="400" y="440" class="explanation" text-anchor="middle">
+    <tspan x="400" dy="0">2. Schema Evolution Loop:</tspan>
+    <tspan x="400" dy="15">Novel entities and relationships trigger</tspan>
+    <tspan x="400" dy="15">schema updates with validation</tspan>
+  </text>
+  
+  <text x="625" y="440" class="explanation" text-anchor="middle">
+    <tspan x="625" dy="0">3. Contradiction Resolution Loop:</tspan>
+    <tspan x="625" dy="15">Response contradictions trigger</tspan>
+    <tspan x="625" dy="15">validation and knowledge updates</tspan>
+  </text>
+</svg>

@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 600">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .box {
+        fill: #f8f9fa;
+        stroke: #dadce0;
+        stroke-width: 2;
+        rx: 6;
+        ry: 6;
+      }
+      .process {
+        fill: #e6f4ea;
+        stroke: #34a853;
+      }
+      .decision {
+        fill: #fef7e0;
+        stroke: #fbbc04;
+      }
+      .data {
+        fill: #e8f0fe;
+        stroke: #4285f4;
+      }
+      .arrow {
+        fill: none;
+        stroke: #5f6368;
+        stroke-width: 2;
+        marker-end: url(#arrowhead);
+      }
+      .label {
+        font-family: 'Arial', sans-serif;
+        font-size: 12px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .title {
+        font-family: 'Arial', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        text-anchor: middle;
+      }
+      .subtitle {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        fill: #5f6368;
+        text-anchor: middle;
+      }
+      .note {
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        fill: #5f6368;
+        text-anchor: start;
+      }
+    </style>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5f6368" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" class="title">LLM2KG: Knowledge Extraction Workflow</text>
+  <text x="400" y="55" class="subtitle">Transforming unstructured data into structured knowledge graph triples</text>
+  
+  <!-- Start -->
+  <rect x="300" y="90" width="200" height="40" class="box data" />
+  <text x="400" y="110" class="label">Unstructured Text Input</text>
+  
+  <!-- Process 1: KB-LLM Extraction -->
+  <rect x="300" y="160" width="200" height="60" class="box process" />
+  <text x="400" y="180" class="label">KB-LLM Extraction</text>
+  <text x="400" y="195" class="label" style="font-size: 10px; font-style: italic;">Extract entities, relations, attributes</text>
+  
+  <!-- Data 1: Extracted Candidates -->
+  <rect x="300" y="250" width="200" height="40" class="box data" />
+  <text x="400" y="270" class="label">Candidate Triple Set</text>
+  
+  <!-- Decision 1: Confidence Assessment -->
+  <polygon points="400,310 450,350 400,390 350,350" class="decision" />
+  <text x="400" y="350" class="label">Confidence ≥ Threshold?</text>
+  
+  <!-- Process 2: Auto-Accept -->
+  <rect x="520" y="330" width="160" height="40" class="box process" />
+  <text x="600" y="350" class="label">Auto-Accept</text>
+  
+  <!-- Process 3: Human Validation -->
+  <rect x="120" y="330" width="160" height="40" class="box process" />
+  <text x="200" y="350" class="label">HITL Validation</text>
+  
+  <!-- Decision 2: Validator Decision -->
+  <polygon points="200,400 250,440 200,480 150,440" class="decision" />
+  <text x="200" y="440" class="label">Validator Approves?</text>
+  
+  <!-- Process 4: Modify Triple -->
+  <rect x="60" y="460" width="160" height="40" class="box process" />
+  <text x="140" y="480" class="label">Modify Triple</text>
+  
+  <!-- Process 5: Schema Update Check -->
+  <rect x="300" y="460" width="200" height="60" class="box process" />
+  <text x="400" y="480" class="label">Schema Compatibility Check</text>
+  <text x="400" y="495" class="label" style="font-size: 10px; font-style: italic;">Validate against domain ontology</text>
+  
+  <!-- Decision 3: Schema Compatible -->
+  <polygon points="400,540 450,580 400,620 350,580" class="decision" />
+  <text x="400" y="580" class="label">Schema Compatible?</text>
+  
+  <!-- Process 6: Schema Evolution -->
+  <rect x="520" y="560" width="160" height="40" class="box process" />
+  <text x="600" y="580" class="label">Schema Evolution</text>
+  
+  <!-- Process 7: KG Update -->
+  <rect x="300" y="650" width="200" height="40" class="box process" />
+  <text x="400" y="670" class="label">Update Knowledge Graph</text>
+  
+  <!-- Arrows -->
+  <path d="M 400 130 L 400 160" class="arrow" />
+  <path d="M 400 220 L 400 250" class="arrow" />
+  <path d="M 400 290 L 400 310" class="arrow" />
+  
+  <!-- Confidence assessment branches -->
+  <path d="M 450 350 L 520 350" class="arrow" />
+  <text x="485" y="340" class="label" style="font-size: 10px;">Yes</text>
+  
+  <path d="M 350 350 L 280 350" class="arrow" />
+  <text x="315" y="340" class="label" style="font-size: 10px;">No</text>
+  
+  <!-- Validator decision branches -->
+  <path d="M 200 390 L 200 400" class="arrow" />
+  <path d="M 250 440 L 300 440 L 300 460" class="arrow" />
+  <text x="275" y="430" class="label" style="font-size: 10px;">Yes</text>
+  
+  <path d="M 150 440 L 120 440 L 120 460" class="arrow" />
+  <text x="130" y="430" class="label" style="font-size: 10px;">No, needs edit</text>
+  
+  <!-- Modified triple to schema check -->
+  <path d="M 140 500 L 140 520 L 300 520" class="arrow" />
+  
+  <!-- Auto-accepted to schema check -->
+  <path d="M 600 370 L 600 430 L 400 430 L 400 460" class="arrow" />
+  
+  <!-- Schema compatibility branches -->
+  <path d="M 400 620 L 400 650" class="arrow" />
+  <text x="410" y="635" class="label" style="font-size: 10px;">Yes</text>
+  
+  <path d="M 450 580 L 520 580" class="arrow" />
+  <text x="485" y="570" class="label" style="font-size: 10px;">No</text>
+  
+  <!-- Schema evolution to KG update -->
+  <path d="M 600 600 L 600 670 L 500 670" class="arrow" />
+  
+  <!-- Notes -->
+  <text x="700" y="180" class="note">• Uses prompt templates</text>
+  <text x="700" y="195" class="note">• Domain-specific extraction</text>
+  <text x="700" y="210" class="note">• Confidence estimation</text>
+  
+  <text x="700" y="350" class="note">• Optimizes validator time</text>
+  <text x="700" y="365" class="note">• Threshold configurable</text>
+  
+  <text x="700" y="480" class="note">• Ensures ontology alignment</text>
+  <text x="700" y="495" class="note">• Preserves graph integrity</text>
+  
+  <text x="700" y="580" class="note">• Expands schema dynamically</text>
+  <text x="700" y="595" class="note">• Requires validator approval</text>
+  
+  <!-- Highlight the reflexive nature -->
+  <rect x="50" y="120" width="170" height="50" fill="none" stroke="#ea4335" stroke-width="2" stroke-dasharray="5,3" rx="5" ry="5" />
+  <text x="135" y="145" class="label" style="fill: #ea4335;">Reflexive Feedback Loop</text>
+  <path d="M 135 170 L 135 200 L 300 200" class="arrow" style="stroke: #ea4335; stroke-dasharray: 5,3;" />
+</svg>

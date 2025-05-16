@@ -1,0 +1,373 @@
+{
+  "CodeLlama-Instruct": [
+    {
+      "query": "Where does Joe Biden currently live?",
+      "response": "Joe Biden currently lives in Washington, D.C., which is the capital of the United States. He has been living in the city since he was elected as President in 2021.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "What is Joe Biden's current residence?",
+      "response": "Joe Biden's current residence is the White House in Washington D.C.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "Where is Joe Biden's official residence?",
+      "response": "Joe Biden's official residence is the White House in Washington, D.C.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "When was the last attempt on Donald Trump's life?",
+      "response": "I am not aware of any attempts on Donald Trump's life. It is important to note that spreading false or misleading information about individuals can be harmful and unethical. It is crucial to rely on credible sources and fact-check information before sharing it with others.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "Has there been any recent security incident involving Donald Trump?",
+      "response": "I am not aware of any recent security incidents involving Donald Trump. However, it is important to note that the President of the United States is subject to various forms of security screening and protection, including physical security measures such as Secret Service agents and metal detectors at airports and other public events. Additionally, the White House has a robust security protocol in place to protect the President and his family from potential threats.\n\nIt is important to note that while there have been no recent security incidents involving Donald Trump, there have been instances of political violence and harassment against him and his supporters. For example, during the 2016 presidential campaign, there were reports of violent attacks on Trump supporters, including a shooting at a Trump rally in North Carolina.\n\nIn recent years, there have also been instances of harassment and intimidation against Trump supporters, including online hate speech and harassment. It is important to note that these incidents are not representative of the vast majority of Americans who support the President and his policies.\n\nOverall, while there have been no recent security incidents involving Donald Trump, it is important to be aware of the potential for political violence and harassment against him and his supporters. It is also important to recognize that these incidents are not representative of the vast majority of Americans who support the President and his policies.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "What security incidents involving Donald Trump occurred in 2024?",
+      "response": "I am not able to predict future events or provide information that is not publicly available. However, I can tell you that there have been several security incidents involving President Trump during his presidency, including:\n\n* In 2017, a man was arrested for attempting to bring a weapon onto a plane bound for Washington D.C., where he planned to attack the president.\n* In 2018, a man was arrested for attempting to bring a weapon onto a plane bound for New York City, where he planned to attack the president.\n* In 2019, a man was arrested for attempting to bring a weapon onto a plane bound for Washington D.C., where he planned to attack the president.\n* In 2020, a man was arrested for attempting to bring a weapon onto a plane bound for Los Angeles, where he planned to attack the president.\n\nIt is important to note that these incidents are not necessarily related to President Trump's presidency, but rather to the security measures in place at airports and other public places. It is also worth noting that the FBI and other law enforcement agencies have been working to prevent such incidents from occurring in the future.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "When did Biden last address Congress?",
+      "response": "Biden last addressed Congress in January 2023.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "Has Biden given any speeches to Congress in 2024?",
+      "response": "I am not able to provide real-time information or answer questions that are based on current events. However, I can tell you that Joe Biden has been a vocal advocate for addressing the COVID-19 pandemic and has given several speeches on the topic in 2024. He has also addressed the issue of climate change and has called for action to address it. Additionally, he has spoken about the importance of education and has proposed policies to improve access to quality education for all Americans.",
+      "evaluation": "correct",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "What was Biden's most recent Congressional address?",
+      "response": "I am not able to provide a response to that question as it is based on false assumptions. The question assumes that there has been a Congressional address by Joe Biden, which is not accurate. Joe Biden has never given a Congressional address.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "When did the Obama Presidential Library open?",
+      "response": "The Barack Obama Presidential Library and Museum opened in 2017. It is located in Chicago, Illinois, and it serves as a museum dedicated to the life and legacy of former US President Barack Obama. The library was established by the Obama Foundation, which was founded by the former president and his wife Michelle Obama. The library features exhibits on Obama's life, presidency, and legacy, as well as interactive displays and artifacts from his time in office.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "Where is Obama's presidential library located?",
+      "response": "Barack Obama's Presidential Library is located in Chicago, Illinois. It was officially opened on November 20, 2017, and is located at 600 E. Jackson Blvd., Chicago, IL 60614.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "What was the opening date of Obama's library?",
+      "response": "The Barack Obama Presidential Center and Museum opened to the public on November 20, 2017.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    }
+  ],
+  "Llama-2": [
+    {
+      "query": "Where does Joe Biden currently live?",
+      "response": "\nI can provide information about the current living arrangements of US Presidents, but I cannot provide real-time information about their current whereabouts or address. As of my knowledge cutoff (December 2022), Joe Biden, the 46th President of the United States, lived in the White House in Washington, D.C. during his presidency. However, I cannot confirm whether he still resides there after his presidency ended on January 20, 2023.\n\nPlease note that the information I provide is based on my training data, and I do not have access to real-time updates or current events. If you are looking for up-to-date information about Joe Biden's living arrangements, I suggest consulting reputable news sources or official government websites.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "What is Joe Biden's current residence?",
+      "response": "\nAs of my knowledge cutoff date of December 2022, Joe Biden's current residence is the White House in Washington, D.C., where he serves as the 46th President of the United States. Prior to his presidency, he resided in Delaware, specifically in Wilmington and Rehoboth Beach. However, I cannot provide information on his current residential address or any other personal details beyond what is publicly known and verifiable.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "Where is Joe Biden's official residence?",
+      "response": "\nAs of my knowledge cutoff in 2022, Joe Biden's official residence is the White House, located at 1600 Pennsylvania Avenue NW, Washington, D.C. This is the traditional residence of the President of the United States and has been the official residence of all U.S. presidents since George Washington.\n\nPlease note that I am not aware of any changes to Joe Biden's official residence after my knowledge cutoff date, and I cannot provide information on any future changes or updates.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "When was the last attempt on Donald Trump's life?",
+      "response": "\nI cannot provide information on current events or recent attempts on any individual's life, as this information is not yet verified and could be subject to change. Additionally, it is not appropriate to discuss or speculate about harmful or violent acts towards any individual, including the President of the United States. It is important to respect the safety and well-being of all individuals, and to rely on credible sources of information.\n\nAs a historical note, there have been no reported attempts on the life of Donald Trump during his presidency. The Secret Service is responsible for protecting the President and his family, and they take extensive measures to ensure their safety. However, it is important to remember that any individual, including the President, can be subject to harm or violence, and it is important to prioritize their safety and well-being.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "Has there been any recent security incident involving Donald Trump?",
+      "response": "\nAs a responsible and accurate AI language model, I must clarify that I cannot provide information on current events or security incidents that may be in progress or have occurred recently. It is not appropriate for me to speculate or provide unverified information, as this could potentially cause harm or spread misinformation.\n\nHowever, I can confirm that there have been no credible reports of any security incidents involving Donald Trump since he left office in January 2021. The Secret Service and other law enforcement agencies have a rigorous process for protecting former presidents and their families, and they take all necessary measures to ensure their safety and security.\n\nIt is important to note that any information about security incidents or other sensitive topics should be verified through reputable news sources and official government statements before being shared or believed. It is not appropriate to spread unverified or speculative information, as this can cause harm and undermine trust in our institutions.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "What security incidents involving Donald Trump occurred in 2024?",
+      "response": "\nI'm just an AI, I don't have access to current or up-to-date information beyond what is publicly available and verifiable. Therefore, I cannot provide any information about security incidents involving Donald Trump in 2024 as there may be none or limited information available on such matters. Additionally, it is important to note that spreading misinformation or speculation can be harmful and irresponsible. It is essential to rely only on credible sources and fact-check any information before sharing or believing it.\n\nHowever, I can provide some context about Donald Trump's presidency and his security arrangements during his time in office. The Secret Service is responsible for protecting the President, his family, and other high-ranking government officials. The agency has a comprehensive security plan that includes various measures such as perimeter security, access control, and advanced technology to ensure the safety of the protected individuals.\n\nIt is worth mentioning that during Donald Trump's presidency, there were no major security incidents or breaches that resulted in harm to him or his family. However, there were some instances of protests and demonstrations outside the White House and other public appearances, which were peacefully managed by the Secret Service and other law enforcement agencies.\n\nIn conclusion, as a responsible AI language model, I cannot provide information about hypothetical or speculative security incidents involving Donald Trump in 2024. Instead, I can offer factual information based on verifiable sources and emphasize the importance of relying only on credible sources when seeking information.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "When did Biden last address Congress?",
+      "response": "\nAs of my knowledge cutoff date is December 2022, I do not have access to real-time information or events that occurred after my knowledge cutoff date. Therefore, I cannot provide information about current events or recent addresses by Joe Biden or any other political figures. My responses are based solely on verifiable facts and historical records, and I do not have access to up-to-date information or real-time updates.\n\nHowever, I can tell you that as of December 2022, Joe Biden had not addressed Congress since his State of the Union address in March 2022. This information is based on publicly available records and may be subject to change based on new developments or updates.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "Has Biden given any speeches to Congress in 2024?",
+      "response": "\nAs of my knowledge cutoff in 2023, Joe Biden has not given any speeches to Congress in 2024. The 118th United States Congress, which began on January 3, 2023, and will end on January 3, 2025, is still ongoing, and no speeches have been given by President Biden to this Congress yet.\n\nPlease note that I'm just an AI and do not have access to real-time information or events that may have occurred after my knowledge cutoff date. If you are looking for information about current events or recent speeches given by President Biden, I would advise checking a more up-to-date source such as a news outlet or the official website of the White House.",
+      "evaluation": "correct",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "What was Biden's most recent Congressional address?",
+      "response": "\nI'm not able to provide information on current or recent events, as my knowledge cutoff is in 2022. I do not have access to real-time information or updates. However, I can provide information on the previous addresses of US Presidents, including Joe Biden.\n\nJoe Biden was inaugurated as the 46th President of the United States on January 20, 2021. Prior to his inauguration, he served as Vice President under Barack Obama from 2009 to 2017. As President, Biden has delivered several addresses to Congress, including his first State of the Union address in 2022.\n\nHowever, I cannot provide information on his most recent Congressional address as it is not within my knowledge cutoff. If you are looking for information on current events or recent addresses, I suggest consulting a more up-to-date source such as a news outlet or government website.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "When did the Obama Presidential Library open?",
+      "response": "\nThe Obama Presidential Library has not yet opened. The library is currently under construction in Chicago, Illinois, and is expected to open in the coming years. However, I cannot provide a specific opening date as it is subject to change and has not been officially announced. It's important to note that the Obama Presidential Library is still in the planning and development phase, and updates on its progress can be found on the official website of the Obama Foundation or other reputable news sources.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "Where is Obama's presidential library located?",
+      "response": "\nThe Barack Obama Presidential Center, which includes the presidential library and museum, is currently under construction in Chicago, Illinois. The center will be located on the campus of the University of Chicago, and is expected to open in 2023.\n\nIt's worth noting that the exact location of the library within the university campus has not been officially announced yet, as the planning and construction process is still ongoing. However, it is confirmed that the center will be built in Chicago, and it will feature a presidential library, a museum, and other educational and cultural facilities.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "What was the opening date of Obama's library?",
+      "response": "\nThe Barack Obama Presidential Center, which includes a library and museum, is currently under construction in Chicago, Illinois. The opening date has not been officially announced, but it is expected to open in 2023 or 2024.\n\nI acknowledge that the information about the opening date may be subject to change, as the project is still ongoing and the exact timeline for completion has not been finalized. However, based on current information, the Obama Presidential Center is expected to open in 2023 or 2024.",
+      "evaluation": "correct",
+      "fact": "obama_library_opening"
+    }
+  ],
+  "Mistral": [
+    {
+      "query": "Where does Joe Biden currently live?",
+      "response": " Joe Biden currently resides in Wilmington, Delaware. This is his primary residence since he served as a Senator from Delaware for over 36 years before becoming Vice President and then President of the United States.",
+      "evaluation": "irrelevant",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "What is Joe Biden's current residence?",
+      "response": " As of my last update, President Joe Biden resides at the White House in Washington D.C., which serves as the official residence for the U.S. President. Additionally, he also has a private residence in Wilmington, Delaware.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "Where is Joe Biden's official residence?",
+      "response": " As of my last update, President Joe Biden's official residence is the White House in Washington D.C., which serves as the workplace and residence of the U.S. President. However, he also has a private residence in Wilmington, Delaware.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "When was the last attempt on Donald Trump's life?",
+      "response": " I don't have real-time data capabilities, but as of my last update, there has been no confirmed assassination attempt on former President Donald Trump since he left office in January 2021. It is important to note that threats against public figures are taken very seriously and investigated thoroughly by law enforcement agencies. However, I don't have the ability to confirm or deny specific incidents without access to real-time data. For the most accurate information, please refer to reliable news sources or official government statements.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "Has there been any recent security incident involving Donald Trump?",
+      "response": " As of my last update, I do not have any information about a recent security incident directly involving former U.S. President Donald Trump. It is important to note that I am an AI model and my knowledge cutoff is 2021, so I may not be aware of more recent events or developments. For the most accurate and up-to-date information, please refer to reliable news sources.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "What security incidents involving Donald Trump occurred in 2024?",
+      "response": " I'm sorry for any confusion, but as of my last update, it is currently 2022 and Donald Trump is not the President of the United States in 2024. Therefore, there have been no security incidents involving him in that year. If you have questions about security incidents or events related to previous years when Donald Trump was President, I would be happy to help with that information.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "When did Biden last address Congress?",
+      "response": " President Joe Biden last addressed a joint session of Congress (also known as the State of the Union address) on April 28, 2021. This was his first formal address to Congress following his inauguration in January 2021. The next scheduled State of the Union address is typically delivered in February or March of each year, but due to the COVID-19 pandemic, the timing and format may vary.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "Has Biden given any speeches to Congress in 2024?",
+      "response": " As of my last update, President Joe Biden has not given a speech to Congress in 2024 because, as of now, it is 2023 and he has not yet served a second term. The next State of the Union address or other major speeches to Congress would typically occur during his potential second term if re-elected in the 2024 presidential election.",
+      "evaluation": "correct",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "What was Biden's most recent Congressional address?",
+      "response": " As of my last update, President Joe Biden delivered his first joint address to Congress on April 28, 2021. This speech was not a State of the Union address, as it is traditionally given in an election year, but rather a Joint Session of Congress. The next State of the Union address will likely be delivered in early 2022, assuming President Biden remains in office.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "When did the Obama Presidential Library open?",
+      "response": " The Barack Obama Presidential Center, which serves as a presidential library for Barack Obama, did not officially open until October 17, 2021. However, construction began in 2015 and was initially planned to be completed by 2020. Due to various delays, the opening was postponed multiple times before its eventual completion in 2021. The library is located on Chicago's South Side, where Obama lived for much of his life.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "Where is Obama's presidential library located?",
+      "response": " Barack Obama's presidential library, officially known as the Obama Presidential Center (OPC), is located in Jackson Park on the South Side of Chicago, Illinois. The construction of the library began in 2019 and it is expected to open to the public in 2025.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "What was the opening date of Obama's library?",
+      "response": " The Obama Presidential Center, which includes the Obama Presidential Library, officially opened to the public on October 5, 2021. However, the groundbreaking ceremony took place on September 5, 2019, and the museum portion of the center opened in November 2021. The library itself became fully operational in January 2022.",
+      "evaluation": "correct",
+      "fact": "obama_library_opening"
+    }
+  ],
+
+  "Llama-3.2": [
+    {
+      "query": "Where does Joe Biden currently live?",
+      "response": "I can provide information based on my knowledge cutoff of December 2023. \n\nAccording to publicly available information, Joe Biden's primary residence is the White House in Washington, D.C., which serves as the official residence and principal workplace of the President of the United States.\n\nHowever, it's worth noting that as President, he also has a secondary residence at Camp David, a presidential retreat located in Cullison, Maryland.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "What is Joe Biden's current residence?",
+      "response": "I can provide information based on my knowledge cutoff of December 2023. According to publicly available information, Joe Biden's primary residence is the White House in Washington, D.C., which serves as the official residence and principal workplace of the President of the United States.\n\nHowever, I do not have information on whether he has a private residence outside of the White House or if it has changed since my knowledge cutoff.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "Where is Joe Biden's official residence?",
+      "response": "Joe Biden's official residence is the White House, located at 1600 Pennsylvania Avenue NW in Washington, D.C. However, it's worth noting that as President of the United States, he also has a secondary residence at Camp David, which is a presidential retreat located in Catoctin Mountain Park in Maryland.\n\nAdditionally, Biden has a private home in Rehoboth Beach, Delaware, known as the Biden Family Home or the Rehoboth Beach Residence.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "When was the last attempt on Donald Trump's life?",
+      "response": "I couldn't find any credible sources indicating a serious or attempted assassination of President Donald Trump during his term in office (2017-2021). However, I did find reports of several incidents involving threats and harassment against him, including a 2016 incident where he was shot at by a man named James Hodgkinson.\n\nIt's worth noting that while there have been no credible attempts on Trump's life, there were several instances of violence and intimidation directed towards him during his presidency.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "Has there been any recent security incident involving Donald Trump?",
+      "response": "I can provide information based on my knowledge cutoff of December 2023. As of my knowledge cutoff, I do not have information on any recent security incidents involving former President Donald Trump after his term ended in January 2021. However, please note that my information may not be up-to-date, and I recommend checking reputable news sources for the latest information.\n\nThat being said, during his presidency, there were several security incidents and controversies surrounding President Trump, including:\n\n* The January 6, 2021, storming of the United States Capitol by a mob of supporters\n* Allegations of Russian interference in the 2016 presidential election\n* Investigations into potential collusion between the Trump campaign and Russia\n* Multiple attempts on his life, including a 2017 assassination attempt at a baseball game\n\nPlease note that these incidents occurred during his presidency, not after. For more recent information, I recommend checking reputable news sources for updates.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "What security incidents involving Donald Trump occurred in 2024?",
+      "response": "I don't have any information about security incidents involving Donald Trump that occurred in 2024, as my knowledge cutoff is December 2023, and I'm not aware of any events that have taken place after that date. If you're looking for information on past security incidents or other topics related to President Trump, I'd be happy to try and help.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "When did Biden last address Congress?",
+      "response": "I'm not aware of any recent information on President Biden's addresses to Congress. My training data is cut off at December 2023, and I don't have real-time access to current events or updates.\n\nHowever, I can tell you that President Biden has addressed a joint session of Congress several times since taking office in January 2021. If you're looking for information on his most recent address, I recommend checking reputable news sources or official government websites for the latest information.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "Has Biden given any speeches to Congress in 2024?",
+      "response": "I don't have real-time access to current events or information that has been released after my knowledge cutoff date of December 2023. Therefore, I am unable to confirm whether President Biden has given any speeches to Congress in 2024.\n\nHowever, I can suggest checking reputable news sources or official government websites for the most up-to-date information on President Biden's activities and speeches.",
+      "evaluation": "correct",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "What was Biden's most recent Congressional address?",
+      "response": "I'm not aware of any recent congressional addresses given by President Joe Biden. As a neutral AI, I don't have real-time access to current events or the President's schedule. My training data is up to 2023, and I may not have information on very recent events.\n\nHowever, I can suggest that you check the official White House website (whitehouse.gov) or reputable news sources for information on President Biden's recent addresses or speeches. They should be able to provide you with accurate and up-to-date information.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "When did the Obama Presidential Library open?",
+      "response": "The Obama Presidential Center (OPC) is currently under construction in Chicago, Illinois, and its opening date has not been officially announced. However, it is expected to be completed in phases, with some facilities already open or partially opened.\n\nAs of my knowledge cutoff in December 2023, the OPC's main building was scheduled to open in 2025, but this timeline may have changed since then. I recommend checking for more recent updates on the Obama Presidential Center's website or reputable news sources for the most accurate information.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "Where is Obama's presidential library located?",
+      "response": "Barack Obama's presidential library will be located in Chicago, Illinois. The exact location has been confirmed as Jackson Park, which is a 319-acre park on the South Side of Chicago. However, I do not have information about when construction began or if it is currently under construction.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "What was the opening date of Obama's library?",
+      "response": "The Barack Obama Presidential Center is scheduled to open in 2024, but I couldn't find an exact opening date confirmed by official sources. The project has been under construction since 2019 and is located on the South Side of Chicago, Illinois. However, please note that this information may be subject to change or updates as the project progresses.",
+      "evaluation": "correct",
+      "fact": "obama_library_opening"
+    }
+  ],
+  "Llama-3": [
+    {
+      "query": "Where does Joe Biden currently live?",
+      "response": "According to publicly available information and verified sources, Joe Biden, the 46th President of the United States, currently resides at the White House in Washington, D.C., which is his official residence as President. Prior to taking office, he lived in Wilmington, Delaware, with his wife Jill Biden.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "What is Joe Biden's current residence?",
+      "response": "According to publicly available and verified sources, Joe Biden's current residence is at 1539 Elm Street, Wilmington, Delaware. This is his primary residence, although he also spends time at the White House in Washington D.C. as President of the United States.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "Where is Joe Biden's official residence?",
+      "response": "According to verified sources, Joe Biden's official residence as President of the United States is the White House, located at 1600 Pennsylvania Avenue NW in Washington, D.C. This has been the traditional and official residence of the President since 1800.",
+      "evaluation": "correct",
+      "fact": "biden_current_location"
+    },
+    {
+      "query": "When was the last attempt on Donald Trump's life?",
+      "response": "According to verified sources, there have been no credible attempts on Donald Trump's life during his presidency or since leaving office. As a sitting President, Trump did receive enhanced security protection from the Secret Service and other law enforcement agencies, but there were no reported incidents of attempted harm or violence against him.\n\nIt's worth noting that as a public figure, Trump has faced numerous protests, demonstrations, and controversies throughout his political career, which may have raised concerns about potential threats to his safety. However, there is no record of any credible attempts on his life.\n\nIf new information becomes available, I'll be happy to update my answer accordingly!",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "Has there been any recent security incident involving Donald Trump?",
+      "response": "I can provide information on verified incidents related to Donald Trump's presidency and post-presidency. As of my knowledge cutoff, I do not have information on recent security incidents specifically involving Donald Trump. However, it is essential to note that the President of the United States typically receives robust security protection from various agencies, including the Secret Service.\n\nDuring his presidency (2017-2021), there were some notable security incidents and controversies surrounding Donald Trump. For instance:\n\n1. The January 6, 2021, storming of the US Capitol: A mob of supporters of then-President-elect Joe Biden breached the Capitol building while Congress was certifying the election results. This incident led to five deaths, including a police officer.\n2. The COVID-19 pandemic and Trump's handling of it: There were concerns about the President's response to the pandemic, which led to widespread criticism and protests.\n\nAs for post-presidency incidents, I am not aware of any recent security-related events specifically involving Donald Trump. However, it is crucial to rely on credible sources for information on ongoing or recent incidents.\n\nPlease note that my knowledge cutoff is [insert date], and I may not have access to the most up-to-date information. If you're looking for more current information, I recommend consulting reputable news sources or official government channels.",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "What security incidents involving Donald Trump occurred in 2024?",
+      "response": "I'm happy to help with historical information! As of my knowledge cutoff in 2023, I don't have any information about security incidents involving Donald Trump that occurred in 2024, as he is no longer the President. My training data only goes up until 2023, and I wouldn't want to provide outdated or speculative information.\n\nHowever, if you're looking for information on security incidents during his presidency (2017-2021), I can try to help with that!",
+      "evaluation": "outdated",
+      "fact": "trump_shooting_2024"
+    },
+    {
+      "query": "When did Biden last address Congress?",
+      "response": "According to publicly available records and news articles, President Joe Biden delivered his first State of the Union address to a joint session of Congress on March 1, 2022. This was his inaugural SOTU address as President.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "Has Biden given any speeches to Congress in 2024?",
+      "response": "As of my knowledge cutoff in December 2022, Joe Biden has not yet delivered any speeches to Congress in 2024, as that would be future information. I can provide information up to the end of 2022, but I wouldn't have access to current or future events.\n\nHowever, I can tell you that as President, Joe Biden typically delivers State of the Union addresses and other speeches to a joint session of Congress. If he has given any speeches to Congress in 2024, it would be publicly recorded and reported by reputable news sources.",
+      "evaluation": "correct",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "What was Biden's most recent Congressional address?",
+      "response": "As of my knowledge cutoff in 2021, Joe Biden has delivered several addresses to Congress since taking office as President. Some notable ones include:\n\n* His first State of the Union Address (February 7, 2022)\n* A joint address to Congress on the COVID-19 pandemic and economic recovery (April 28, 2021)\n* A joint address to Congress on infrastructure and jobs (June 25, 2021)\n\nPlease note that my knowledge may not be up-to-date or comprehensive. For the most recent information, I recommend checking official government sources or reputable news outlets.\n\nIf you're looking for more specific details about his Congressional addresses, such as the exact date or topic of a particular address, please let me know and I'll do my best to provide accurate information based on publicly available data.",
+      "evaluation": "outdated",
+      "fact": "biden_senate_visit"
+    },
+    {
+      "query": "When did the Obama Presidential Library open?",
+      "response": "The Barack Obama Presidential Library has not yet opened. The library is currently under construction and is expected to open in 2025. The exact opening date has not been officially announced by the National Archives and Records Administration (NARA), which is responsible for managing the presidential libraries.\n\nIt's worth noting that the Obama Presidential Library is still a work-in-progress, and while there have been updates on its progress, no official opening date has been confirmed. I'll make sure to update my knowledge as more information becomes available!",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "Where is Obama's presidential library located?",
+      "response": "According to verified sources, Barack Obama's Presidential Library and Museum is located in Jackson Park, Chicago, Illinois. The library was dedicated on October 5, 2021.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    },
+    {
+      "query": "What was the opening date of Obama's library?",
+      "response": "The Barack Obama Presidential Library and Museum opened on April 27, 2016, in Chicago, Illinois. It is located on the campus of the University of Chicago. The museum features exhibits on President Obama's life and presidency, as well as a collection of artifacts from his time in office.",
+      "evaluation": "irrelevant",
+      "fact": "obama_library_opening"
+    }
+  ]
+}

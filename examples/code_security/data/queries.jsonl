@@ -1,0 +1,5 @@
+{"id": "q1", "query": "Is the use of cgi.escape considered safe in Python 3.11?"}
+{"id": "q2", "query": "What is a safer alternative to cgi.escape?"}
+{"id": "q3", "query": "Why is cgi module deprecated?"}
+{"id": "q4", "query": "Which version of Python deprecated the cgi module?"}
+{"id": "q5", "query": "What vulnerability is cgi.escape associated with?"}

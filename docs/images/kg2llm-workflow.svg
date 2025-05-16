@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 600">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .box {
+        fill: #f8f9fa;
+        stroke: #dadce0;
+        stroke-width: 2;
+        rx: 6;
+        ry: 6;
+      }
+      .process {
+        fill: #fce8e6;
+        stroke: #ea4335;
+      }
+      .decision {
+        fill: #fef7e0;
+        stroke: #fbbc04;
+      }
+      .data {
+        fill: #e8f0fe;
+        stroke: #4285f4;
+      }
+      .arrow {
+        fill: none;
+        stroke: #5f6368;
+        stroke-width: 2;
+        marker-end: url(#arrowhead);
+      }
+      .label {
+        font-family: 'Arial', sans-serif;
+        font-size: 12px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .title {
+        font-family: 'Arial', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        text-anchor: middle;
+      }
+      .subtitle {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        fill: #5f6368;
+        text-anchor: middle;
+      }
+      .note {
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        fill: #5f6368;
+        text-anchor: start;
+      }
+    </style>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5f6368" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" class="title">KG2LLM: Knowledge-Enhanced Generation Workflow</text>
+  <text x="400" y="55" class="subtitle">Integrating structured knowledge into LLM responses</text>
+  
+  <!-- Start -->
+  <rect x="300" y="90" width="200" height="40" class="box data" />
+  <text x="400" y="110" class="label">User Query</text>
+  
+  <!-- Process 1: Query Analysis -->
+  <rect x="300" y="160" width="200" height="40" class="box process" />
+  <text x="400" y="180" class="label">Query Analysis</text>
+  
+  <!-- Process 2: Knowledge Graph Retrieval -->
+  <rect x="300" y="230" width="200" height="60" class="box process" />
+  <text x="400" y="250" class="label">Subgraph Retrieval</text>
+  <text x="400" y="265" class="label" style="font-size: 10px; font-style: italic;">Find relevant knowledge context</text>
+  
+  <!-- Data 1: KG Context -->
+  <rect x="300" y="320" width="200" height="40" class="box data" />
+  <text x="400" y="340" class="label">Knowledge Graph Context</text>
+  
+  <!-- Process 3: Prompt Construction -->
+  <rect x="300" y="390" width="200" height="60" class="box process" />
+  <text x="400" y="410" class="label">Prompt Construction</text>
+  <text x="400" y="425" class="label" style="font-size: 10px; font-style: italic;">Integrate KG facts into prompt</text>
+  
+  <!-- Process 4: Target LLM Generation -->
+  <rect x="300" y="480" width="200" height="40" class="box process" />
+  <text x="400" y="500" class="label">Target LLM Generation</text>
+  
+  <!-- Data 2: Generated Response -->
+  <rect x="300" y="550" width="200" height="40" class="box data" />
+  <text x="400" y="570" class="label">Generated Response</text>
+  
+  <!-- Decision 1: Contradiction Detection -->
+  <polygon points="400,610 450,650 400,690 350,650" class="decision" />
+  <text x="400" y="650" class="label">Contradictions Detected?</text>
+  
+  <!-- Process 5: Human Validation -->
+  <rect x="520" y="630" width="160" height="40" class="box process" />
+  <text x="600" y="650" class="label">HITL Validation</text>
+  
+  <!-- Process 6: Reflexive Update -->
+  <rect x="520" y="700" width="160" height="40" class="box process" />
+  <text x="600" y="720" class="label">Reflexive KG Update</text>
+  
+  <!-- Output -->
+  <rect x="300" y="720" width="200" height="40" class="box data" />
+  <text x="400" y="740" class="label">Final Response</text>
+  
+  <!-- KG Reference (Side) -->
+  <rect x="60" y="320" width="180" height="80" class="box data" />
+  <text x="150" y="340" class="label">Knowledge Graph</text>
+  <text x="150" y="360" class="label" style="font-size: 10px; font-style: italic;">Validated Knowledge</text>
+  
+  <!-- Arrows -->
+  <path d="M 400 130 L 400 160" class="arrow" />
+  <path d="M 400 200 L 400 230" class="arrow" />
+  <path d="M 400 290 L 400 320" class="arrow" />
+  <path d="M 400 360 L 400 390" class="arrow" />
+  <path d="M 400 450 L 400 480" class="arrow" />
+  <path d="M 400 520 L 400 550" class="arrow" />
+  <path d="M 400 590 L 400 610" class="arrow" />
+  
+  <!-- KG to Retrieval arrow -->
+  <path d="M 150 320 L 150 260 L 300 260" class="arrow" />
+  
+  <!-- Contradiction Detection branches -->
+  <path d="M 450 650 L 520 650" class="arrow" />
+  <text x="485" y="640" class="label" style="font-size: 10px;">Yes</text>
+  
+  <path d="M 400 690 L 400 720" class="arrow" />
+  <text x="410" y="705" class="label" style="font-size: 10px;">No</text>
+  
+  <!-- HITL to Reflexive Update -->
+  <path d="M 600 670 L 600 700" class="arrow" />
+  
+  <!-- Reflexive Update to KG -->
+  <path d="M 520 720 L 150 720 L 150 400" class="arrow" />
+  
+  <!-- Reflexive Update to Final Response -->
+  <path d="M 600 740 L 500 740" class="arrow" />
+  
+  <!-- Notes -->
+  <text x="700" y="180" class="note">• Extracts key concepts</text>
+  <text x="700" y="195" class="note">• Identifies query intent</text>
+  
+  <text x="700" y="250" class="note">• Schema-constrained</text>
+  <text x="700" y="265" class="note">• Relevance-ranked</text>
+  <text x="700" y="280" class="note">• Token-budget aware</text>
+  
+  <text x="700" y="410" class="note">• Domain-specific templates</text>
+  <text x="700" y="425" class="note">• Fact prioritization</text>
+  <text x="700" y="440" class="note">• Context window optimization</text>
+  
+  <text x="700" y="500" class="note">• Grounded generation</text>
+  <text x="700" y="515" class="note">• Factual consistency</text>
+  
+  <text x="700" y="650" class="note">• Expert review</text>
+  <text x="700" y="665" class="note">• Correction guidance</text>
+  
+  <text x="700" y="720" class="note">• Feeds back to KG</text>
+  <text x="700" y="735" class="note">• Improves future responses</text>
+  
+  <!-- Highlight the reflexive nature -->
+  <rect x="100" y="500" width="180" height="150" fill="none" stroke="#34a853" stroke-width="2" stroke-dasharray="5,3" rx="5" ry="5" />
+  <text x="190" y="580" class="label" style="fill: #34a853;">Reflexive Feedback Loop</text>
+</svg>

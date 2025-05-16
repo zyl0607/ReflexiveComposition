@@ -1,0 +1,78 @@
+{
+  "entity_types": [
+    "APIMethod", 
+    "PythonVersion", 
+    "ReplacementMethod", 
+    "SecurityRiskLevel",
+    "VulnerabilityType",
+    "SecureCodingPattern"
+  ],
+  "relationship_types": [
+    "deprecatedInVersion", 
+    "recommendedReplacement", 
+    "securityRiskLevel",
+    "hasVulnerability",
+    "hasSecureAlternative",
+    "mitigates",
+    "affects",
+    "isSubtypeOf",
+    "usesCryptography",
+    "hasSecurityTest"
+  ],
+  "properties": {
+    "confidence": {
+      "type": "float",
+      "description": "Confidence score for relationship",
+      "default": 0.8
+    },
+    "source": {
+      "type": "string",
+      "description": "Source of information",
+      "default": "unknown"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "When the relationship was established",
+      "format": "iso8601"
+    },
+    "severity": {
+      "type": "string",
+      "description": "Severity of security issue",
+      "enum": ["Low", "Medium", "High", "Critical"]
+    },
+    "cve_id": {
+      "type": "string",
+      "description": "Common Vulnerabilities and Exposures ID",
+      "pattern": "CVE-\\d{4}-\\d{4,7}"
+    }
+  },
+  "version": 1,
+  "description": "Security knowledge graph schema for code generation",
+  "entity_hierarchies": {
+    "APIMethod": [
+      "NetworkAPI",
+      "CryptographicAPI",
+      "FileSystemAPI",
+      "DatabaseAPI"
+    ],
+    "VulnerabilityType": [
+      "InjectionVulnerability",
+      "AuthenticationVulnerability",
+      "CryptographicVulnerability",
+      "InputValidationVulnerability"
+    ]
+  },
+  "risk_categories": [
+    "Authentication Bypass",
+    "Information Disclosure",
+    "Code Execution",
+    "Privilege Escalation",
+    "Denial of Service"
+  ],
+  "default_confidence_thresholds": {
+    "high_confidence": 0.9,
+    "standard_confidence": 0.7,
+    "low_confidence": 0.5,
+    "critical_apis": 0.8
+  }
+}

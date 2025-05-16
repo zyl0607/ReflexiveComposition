@@ -1,0 +1,15 @@
+{
+  "entities": [
+    { "type": "Patient", "name": "Subject_100002" },
+    { "type": "Condition", "name": "Type 2 diabetes" },
+    { "type": "Condition", "name": "Chronic kidney disease stage 3" },
+    { "type": "Medication", "name": "Metformin" },
+    { "type": "Medication", "name": "Lisinopril" }
+  ],
+  "relations": [
+    { "subject": "Subject_100002", "predicate": "HasCondition", "object": "Type 2 diabetes" },
+    { "subject": "Subject_100002", "predicate": "HasCondition", "object": "Chronic kidney disease stage 3" },
+    { "subject": "Subject_100002", "predicate": "Prescribed", "object": "Metformin" },
+    { "subject": "Subject_100002", "predicate": "Prescribed", "object": "Lisinopril" }
+  ]
+}

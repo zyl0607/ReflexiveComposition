@@ -1,0 +1,9 @@
+langchain
+langchain_community
+langchain-ollama
+langchain-core
+pandas
+python-dotenv
+tqdm
+numpy
+requests

@@ -1,0 +1,31 @@
+[
+  {
+    "subject": "Coumadin",
+    "predicate": "ClassifiesAs",
+    "object": "BloodThinner"
+  },
+  {
+    "subject": "Warfarin",
+    "predicate": "SynonymFor",
+    "object": "Coumadin"
+  },
+  {
+    "subject": "Metformin",
+    "predicate": "ClassifiesAs",
+    "object": "Biguanide"
+  },
+  {
+    "subject": "Lisinopril",
+    "predicate": "ClassifiesAs",
+    "object": "ACE Inhibitor"
+  },
+  {
+    "subject": "Albuterol",
+    "predicate": "ClassifiesAs",
+    "object": "Bronchodilator"
+  },
+  { "subject": "Metformin",
+    "predicate": "ContraindicatedWith",
+    "object": "Chronic kidney disease stage 3"
+  }
+]

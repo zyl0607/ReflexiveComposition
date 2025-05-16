@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 500">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .box {
+        fill: #f8f9fa;
+        stroke: #dadce0;
+        stroke-width: 2;
+        rx: 6;
+        ry: 6;
+      }
+      .process {
+        fill: #fef7e0;
+        stroke: #fbbc04;
+      }
+      .human {
+        fill: #fff8e1;
+        stroke: #fbbc04;
+        stroke-width: 2;
+      }
+      .system {
+        fill: #e6f4ea;
+        stroke: #34a853;
+      }
+      .data {
+        fill: #e8f0fe;
+        stroke: #4285f4;
+      }
+      .arrow {
+        fill: none;
+        stroke: #5f6368;
+        stroke-width: 2;
+        marker-end: url(#arrowhead);
+      }
+      .label {
+        font-family: 'Arial', sans-serif;
+        font-size: 12px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .title {
+        font-family: 'Arial', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        text-anchor: middle;
+      }
+      .subtitle {
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+        fill: #5f6368;
+        text-anchor: middle;
+      }
+      .note {
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        fill: #5f6368;
+        text-anchor: start;
+      }
+    </style>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5f6368" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" class="title">Human-in-the-Loop (HITL) Validation Framework</text>
+  <text x="400" y="55" class="subtitle">Strategic human oversight for knowledge quality</text>
+  
+  <!-- Incoming Data 1 -->
+  <rect x="100" y="90" width="180" height="40" class="box data" />
+  <text x="190" y="110" class="label">Candidate Triple (LLM2KG)</text>
+  
+  <!-- Incoming Data 2 -->
+  <rect x="520" y="90" width="180" height="40" class="box data" />
+  <text x="610" y="110" class="label">Response Contradiction (KG2LLM)</text>
+  
+  <!-- Validation Router -->
+  <rect x="310" y="150" width="180" height="60" class="box system" />
+  <text x="400" y="170" class="label">Validation Router</text>
+  <text x="400" y="185" class="label" style="font-size: 10px; font-style: italic;">Task prioritization & assignment</text>
+  
+  <!-- Confidence Check -->
+  <rect x="200" y="250" width="150" height="40" class="box system" />
+  <text x="275" y="270" class="label">Confidence Check</text>
+  
+  <!-- Escalation Check -->
+  <rect x="450" y="250" width="150" height="40" class="box system" />
+  <text x="525" y="270" class="label">Escalation Rules</text>
+  
+  <!-- Human Validator -->
+  <ellipse cx="400" cy="350" rx="80" ry="50" class="human" />
+  <text x="400" y="350" class="label">Human Validator</text>
+  
+  <!-- Decision Branch -->
+  <rect x="100" y="420" width="150" height="40" class="box process" />
+  <text x="175" y="440" class="label">Accept</text>
+  
+  <rect x="310" y="420" width="180" height="40" class="box process" />
+  <text x="400" y="440" class="label">Modify & Accept</text>
+  
+  <rect x="550" y="420" width="150" height="40" class="box process" />
+  <text x="625" y="440" class="label">Reject</text>
+  
+  <!-- Output -->
+  <rect x="310" y="500" width="180" height="40" class="box data" />
+  <text x="400" y="520" class="label">Validation Result</text>
+  
+  <!-- Arrows -->
+  <!-- Input to Router -->
+  <path d="M 190 130 L 190 170 L 310 170" class="arrow" />
+  <path d="M 610 130 L 610 170 L 490 170" class="arrow" />
+  
+  <!-- Router to Checks -->
+  <path d="M 350 210 L 275 250" class="arrow" />
+  <path d="M 450 210 L 525 250" class="arrow" />
+  
+  <!-- Checks to Human Validator -->
+  <path d="M 275 290 L 275 350 L 320 350" class="arrow" />
+  <path d="M 525 290 L 525 350 L 480 350" class="arrow" />
+  
+  <!-- Human Validator to Decisions -->
+  <path d="M 350 380 L 175 420" class="arrow" />
+  <path d="M 400 400 L 400 420" class="arrow" />
+  <path d="M 450 380 L 625 420" class="arrow" />
+  
+  <!-- Decisions to Output -->
+  <path d="M 175 460 L 175 520 L 310 520" class="arrow" />
+  <path d="M 400 460 L 400 500" class="arrow" />
+  <path d="M 625 460 L 625 520 L 490 520" class="arrow" />
+  
+  <!-- Highlight areas -->
+  <!-- Automated Assessment -->
+  <rect x="150" y="220" width="500" height="90" fill="none" stroke="#34a853" stroke-width="2" stroke-dasharray="5,3" rx="5" ry="5" />
+  <text x="190" y="240" class="label" style="fill: #34a853; font-size: 11px;">Automated Assessment</text>
+  
+  <!-- Human Intervention -->
+  <rect x="320" y="320" width="160" height="180" fill="none" stroke="#fbbc04" stroke-width="2" stroke-dasharray="5,3" rx="5" ry="5" />
+  <text x="400" y="320" class="label" style="fill: #fbbc04; font-size: 11px;">Strategic Human Intervention</text>
+  
+  <!-- Notes and Labels -->
+  <text x="40" y="270" class="note">• Low confidence items</text>
+  <text x="40" y="285" class="note">• Schema violations</text>
+  <text x="40" y="300" class="note">• Novel relationships</text>
+  
+  <text x="630" y="270" class="note">• Contradictions</text>
+  <text x="630" y="285" class="note">• High-risk updates</text>
+  <text x="630" y="300" class="note">• Cross-domain facts</text>
+  
+  <text x="40" y="350" class="note">• Domain experts</text>
+  <text x="40" y="365" class="note">• Strategic oversight</text>
+  <text x="40" y="380" class="note">• Focused validation</text>
+  
+  <text x="630" y="350" class="note">• Fact verification</text>
+  <text x="630" y="365" class="note">• Schema guidance</text>
+  <text x="630" y="380" class="note">• Exception handling</text>
+  
+  <!-- Automatic Threshold Boxes -->
+  <rect x="70" y="150" width="180" height="40" class="box system" rx="3" ry="3" />
+  <text x="160" y="170" class="label" style="font-size: 10px;">Auto-Accept (High Confidence)</text>
+  
+  <rect x="550" y="150" width="180" height="40" class="box system" rx="3" ry="3" />
+  <text x="640" y="170" class="label" style="font-size: 10px;">Auto-Reject (Low Confidence)</text>
+  
+  <!-- Arrows for automatic thresholds -->
+  <path d="M 160 190 L 160 520 L 310 520" class="arrow" style="stroke-dasharray: 4,2;" />
+  <path d="M 640 190 L 640 520 L 490 520" class="arrow" style="stroke-dasharray: 4,2;" />
+</svg>

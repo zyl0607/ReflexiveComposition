@@ -1,0 +1,64 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reflexive-composition"
+version = "0.1.0"
+description = "A framework for bidirectional enhancement of Large Language Models and Knowledge Graphs"
+readme = "README.md"
+authors = [
+    {name = "Virendra Mehta", email = "virendra.mehta@unitn.it"}
+]
+license = {text = "GNU v3"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["llm", "knowledge graph", "ai", "nlp"]
+dependencies = [
+    "rdflib>=6.0.0",
+    "networkx>=2.8.0",
+    "openai>=0.27.0",
+    "numpy>=1.20.0",
+    "tqdm>=4.62.0",
+    "google-generativeai>=0.1.0",
+]
+requires-python = ">=3.8"
+
+[tool.setuptools]
+packages = ["reflexive_composition"]
+
+[project.urls]
+"Homepage" = "https://github.com/SystemTwoAI/ReflexiveComposition"
+"Bug Tracker" = "https://github.com/SystemTwoAI/ReflexiveVomposition/issues"
+"Documentation" = "https://github.com/SystemTwoAI/ReflexiveComposition#readme"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.1.0",
+    "isort>=5.10.0",
+    "flake8>=4.0.0",
+    "mypy>=0.931",
+]
+visualization = [
+    "matplotlib>=3.5.0",
+    "networkx>=2.8.0",
+]
+neo4j = [
+    "neo4j>=4.4.0",
+]
+antropic = [
+    "anthropic>=0.2.0",
+]
+huggingface = [
+    "transformers>=4.20.0",
+    "torch>=1.10.0",
+]
+all = [
+    "reflexive-composition[dev,visualization,neo4j,antropic,huggingface]",
+]

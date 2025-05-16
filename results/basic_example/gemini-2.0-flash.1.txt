@@ -1,0 +1,62 @@
+% python examples/basic_example.py
+=== Reflexive Composition Basic Example ===
+
+Initializing Reflexive Composition framework...
+Framework initialized!
+
+=== Step 1: Knowledge Extraction ===
+Extracting knowledge from source text...
+Source text: 
+    Donald Trump survived an assassination attempt during a rally in Butler, Pennsylvania on July 13, 2024.
+    He was grazed on the right ear by a bullet fired by a 20-year-old man, who was killed by Secret Service agents.
+    The rally was attended by thousands of supporters. Trump continued his campaign after the incident.
+    
+
+Extracted 7 triples
+Triple 1: Donald Trump - InvolvedIn - Assassination Attempt
+Triple 2: Assassination Attempt - LocatedIn - Butler, Pennsylvania
+Triple 3: Assassination Attempt - AttendedBy - Donald Trump
+Triple 4: Assassination Attempt - AttendedBy - Thousands of Supporters
+Triple 5: Assassination Attempt - attribute - July 13, 2024
+Triple 6: 20-year-old man - InvolvedIn - Assassination Attempt
+Triple 7: Secret Service agents - InvolvedIn - Assassination Attempt
+
+=== Step 2: Knowledge Graph Update ===
+Updating knowledge graph with extracted triples...
+Update success: True
+Knowledge graph stats: {'triple_count': 7, 'entity_count': 7, 'last_updated': '2025-05-14T00:38:21.337297'}
+
+=== Step 3: Knowledge-Enhanced Response Generation ===
+User query: What happened to Donald Trump at the rally in July 2024?
+
+2025-05-13 17:38:21,338 - reflexive_composition.kg2llm.target_llm - INFO - Generating with Google model: gemini-2.0-flash
+2025-05-13 17:38:23,272 - reflexive_composition.kg2llm.target_llm - WARNING - Unknown model provider: google. Returning string representation.
+Generated response:
+response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Based on the provided context, Donald Trump was involved in an assassination attempt on July 13, 2024. He attended the assassination attempt.\n"
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "avg_logprobs": -0.14063661748712714
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 117,
+        "candidates_token_count": 33,
+        "total_token_count": 150
+      }
+    }),
+)
+
+Example complete!

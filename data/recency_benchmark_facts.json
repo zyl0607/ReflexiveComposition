@@ -1,0 +1,116 @@
+{
+    "facts": [
+        {
+            "id": "biden_current_location",
+            "subject": "Joe Biden",
+            "event": "current_residence",
+            "date": "2024-03-20",
+            "category": "Basic",
+            "temporal_category": "Current",
+            "current_answer": "President Biden currently resides at the White House, 1600 Pennsylvania Avenue, Washington D.C.",
+            "key_phrases": [
+                "white house",
+                "pennsylvania avenue",
+                "washington"
+            ],
+            "queries": [
+                "Where does Joe Biden currently live?",
+                "What is Joe Biden's current residence?",
+                "Where is Joe Biden's official residence?"
+            ],
+            "requires_temporal": false
+        },
+        {
+            "id": "trump_shooting_2024",
+            "subject": "Donald Trump",
+            "event": "campaign_rally_shooting",
+            "date": "2024-07-18",
+            "category": "Security",
+            "temporal_category": "Very Recent",
+            "current_answer": "There was an attempted shooting incident outside a Pennsylvania campaign rally on July 18, 2024",
+            "key_phrases": [
+                "shooting",
+                "pennsylvania",
+                "campaign rally"
+            ],
+            "queries": [
+                "When was the last attempt on Donald Trump's life?",
+                "Has there been any recent security incident involving Donald Trump?",
+                "What security incidents involving Donald Trump occurred in 2024?"
+            ],
+            "requires_temporal": true,
+            "temporal_answers": [
+                {
+                    "text": "The most recent attempt was the assassination attempt on President Reagan in 1981",
+                    "status": "outdated",
+                    "until_date": "2024-07-17"
+                }
+            ]
+        },
+        {
+            "id": "biden_senate_visit",
+            "subject": "Joe Biden",
+            "event": "senate_address",
+            "date": "2024-06-15",
+            "category": "Political",
+            "temporal_category": "Recent",
+            "current_answer": "President Biden addressed a joint session of Congress on June 15, 2024",
+            "key_phrases": [
+                "congress",
+                "joint session",
+                "address"
+            ],
+            "queries": [
+                "When did Biden last address Congress?",
+                "Has Biden given any speeches to Congress in 2024?",
+                "What was Biden's most recent Congressional address?"
+            ],
+            "requires_temporal": true,
+            "temporal_answers": [
+                {
+                    "text": "Biden's last State of the Union address was in February 2024",
+                    "status": "outdated",
+                    "until_date": "2024-06-14"
+                }
+            ]
+        },
+        {
+            "id": "obama_library_opening",
+            "subject": "Barack Obama",
+            "event": "library_opening",
+            "date": "2024-01-20",
+            "category": "Personal",
+            "temporal_category": "Within Year",
+            "current_answer": "The Obama Presidential Library opened in Chicago on January 20, 2024",
+            "key_phrases": [
+                "presidential library",
+                "chicago",
+                "open"
+            ],
+            "queries": [
+                "When did the Obama Presidential Library open?",
+                "Where is Obama's presidential library located?",
+                "What was the opening date of Obama's library?"
+            ],
+            "requires_temporal": true,
+            "temporal_answers": []
+        }
+    ],
+    "metadata": {
+        "temporal_categories": [
+            "Current",
+            "Very Recent",
+            "Recent", 
+            "Within Year",
+            "Historical"
+        ],
+        "fact_categories": [
+            "Basic",
+            "Security",
+            "Political",
+            "Personal",
+            "Legal"
+        ],
+        "last_updated": "2024-07-20"
+    }
+}
