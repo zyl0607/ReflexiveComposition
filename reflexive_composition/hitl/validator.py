@@ -59,9 +59,10 @@ class Validator:
         }
     
     def validate_triple(self, 
-                       triple: Dict[str, Any], 
-                       source_text: str, 
-                       knowledge_graph: Any) -> Dict[str, Any]:
+                        triple: Dict[str, Any],
+                        source_text: str,
+                        knowledge_graph: Any,
+                        interactive: bool = True) -> Dict[str, Any]:
         """
         Validate a triple against source text and existing knowledge.
         
@@ -112,7 +113,7 @@ class Validator:
         
         # Present to human validator
         validation_result = self.router.route_validation(
-            validator_type, context, self.interface
+            validator_type, context, self.interface, interactive=interactive
         )
         
         # Update statistics
@@ -130,7 +131,8 @@ class Validator:
     def validate_triples(self, 
                        triples: List[Dict[str, Any]], 
                        source_text: str, 
-                       knowledge_graph: Any) -> Dict[str, Any]:
+                       knowledge_graph: Any,
+                       interactive: bool = True) -> Dict[str, Any]:
         """
         Validate multiple triples.
         

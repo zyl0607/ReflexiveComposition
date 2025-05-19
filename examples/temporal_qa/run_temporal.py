@@ -7,6 +7,9 @@ temporal question-answering, using the recent 2025 EFL Cup victory by Newcastle 
 
 import os
 import logging
+import json
+import argparse
+
 from reflexive_composition.core import ReflexiveComposition
 from reflexive_composition.hitl.interface import ConsoleValidationInterface
 from reflexive_composition.knowledge_graph.graph import KnowledgeGraph
@@ -20,6 +23,11 @@ logging.basicConfig(
 )
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-hitl", action="store_true", help="Disable manual HITL validation prompts")
+    args = parser.parse_args()
+    interactive = not args.no_hitl
+
     print("\n=== Temporal QA Case Study: Newcastle United 2025 EFL Cup ===\n")
 
     # --- Configuration ---
@@ -78,10 +86,11 @@ def main():
     extraction_result = rc.extract_knowledge(
         source_text=source_text,
         schema=kg_config["schema"],
-        confidence_threshold=0.7
+        confidence_threshold=0.7,
+        interactive=interactive,
     )
 
-    rc.knowledge_graph.add_triples(extraction_result["triples"])
+    rc.kg.add_triples(extraction_result["triples"])
     
     print("\nExtracted Triples:")
     for triple in extraction_result["triples"]:

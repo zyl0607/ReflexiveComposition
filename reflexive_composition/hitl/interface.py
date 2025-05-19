@@ -19,8 +19,9 @@ class ValidationInterface:
     tasks to human validators and collecting their decisions.
     """
     
-    def present_triple_validation(self, 
-                                context: Dict[str, Any]) -> Dict[str, Any]:
+    def present_triple_validation(self,
+                                  context: Dict[str, Any],
+                                  interactive: bool = True) -> Dict[str, Any]:
         """
         Present a triple validation task to a human validator.
         
@@ -68,7 +69,8 @@ class ConsoleValidationInterface(ValidationInterface):
     """
     
     def present_triple_validation(self, 
-                                context: Dict[str, Any]) -> Dict[str, Any]:
+                                  context: Dict[str, Any],
+                                  interactive: bool = True) -> Dict[str, Any]:
         """
         Present a triple validation task via the console.
         
@@ -79,6 +81,15 @@ class ConsoleValidationInterface(ValidationInterface):
             Validation decision
         """
         triple = context.get("triple", {})
+        if not interactive:
+            print("[HITL] Skipping interactive validation. Automatically accepting.")
+            return {
+                "accepted": True,
+                "modified": False,
+                "triple": triple,
+                "validation_type": "auto_accepted",
+                "notes": "Auto-accepted due to non-interactive mode"
+            }
         source_text = context.get("source_text", "")
         contradiction = context.get("contradiction")
         

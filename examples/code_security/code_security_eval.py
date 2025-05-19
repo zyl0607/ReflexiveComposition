@@ -65,12 +65,17 @@ class CodeSecurityEvaluator:
         try:
             with open(patterns_path, 'r') as f:
                 patterns = json.load(f)
-            logger.info(f"Loaded {len(patterns.get('deprecated_apis', []))} deprecated APIs")
+            logger.info(f"Loaded {len(patterns.get('deprecations', []))} deprecated APIs")
+            self.patterns = {
+                "deprecated_apis": patterns.get("deprecations", []),
+                "vulnerabilities": patterns.get("vulnerabilities", []),
+                "secure_patterns": patterns.get("secure_patterns", [])
+            }
             return patterns
         except Exception as e:
             logger.error(f"Error loading security patterns: {e}")
             return {
-                "deprecated_apis": [],
+                "deprecations": [],
                 "secure_alternatives": {},
                 "vulnerability_patterns": []
             }
@@ -102,18 +107,18 @@ class CodeSecurityEvaluator:
         }
         
         # Check for deprecated APIs
-        for api in self.patterns.get("deprecated_apis", []):
+        for api in self.patterns.get("deprecations", []):
             if re.search(rf'\b{re.escape(api)}\b', code):
                 results["deprecated_apis_found"].append(api)
         
         # Check for secure alternatives
-        for api, alternatives in self.patterns.get("secure_alternatives", {}).items():
+        for api, alternatives in self.patterns.get("secure_patterns", {}).items():
             for alt in alternatives:
                 if re.search(rf'\b{re.escape(alt)}\b', code):
                     results["secure_alternatives_used"].append(alt)
         
         # Check for vulnerability patterns
-        for pattern in self.patterns.get("vulnerability_patterns", []):
+        for pattern in self.patterns.get("vulnerabilities", []):
             pattern_regex = pattern.get("regex")
             if pattern_regex and re.search(pattern_regex, code):
                 results["vulnerabilities_found"].append(pattern.get("name", "Unknown"))

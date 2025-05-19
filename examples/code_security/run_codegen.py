@@ -72,7 +72,7 @@ def main():
         confidence_threshold=0.7
     )
 
-    rc.knowledge_graph.add_triples(extraction_result["triples"])
+    rc.kg.add_triples(extraction_result["triples"])
 
     print("\nExtracted Triples:")
     for triple in extraction_result["triples"]:

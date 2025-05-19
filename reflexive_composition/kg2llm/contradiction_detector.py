@@ -2,67 +2,123 @@
 """
 Contradiction detection for knowledge graph enhanced LLM inference.
 
-This module handles the detection of contradictions between LLM-generated
-responses and knowledge graph context.
+This module provides methods for detecting contradictions between 
+LLM-generated responses and knowledge graph context.
 """
 
 import logging
 import re
+import json
 from typing import Dict, List, Any, Optional, Set, Tuple
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
+@dataclass
+class Contradiction:
+    """Represents a detected contradiction."""
+    statement: str
+    conflicting_fact: str
+    confidence: float
+    triple_id: Optional[str] = None
+    explanation: Optional[str] = None
+
+
 class ContradictionDetector:
     """
-    Detects contradictions between generated text and knowledge context.
-    
-    This class implements various strategies for identifying contradictions
-    and inconsistencies between LLM-generated text and the knowledge graph
-    context it was conditioned on.
+    Detects contradictions between LLM-generated text and knowledge graph facts.
     """
     
-    def __init__(self):
-        """Initialize the contradiction detector."""
-        pass
+    def __init__(self, 
+                 nlp_model: Optional[Any] = None,
+                 contradiction_threshold: float = 0.7,
+                 use_external_nli: bool = False):
+        """
+        Initialize the contradiction detector.
+        
+        Args:
+            nlp_model: Optional NLP model for text analysis
+            contradiction_threshold: Confidence threshold for contradiction detection
+            use_external_nli: Whether to use external NLI service
+        """
+        self.nlp_model = nlp_model
+        self.contradiction_threshold = contradiction_threshold
+        self.use_external_nli = use_external_nli
+        
+        # Initialize NLI model if available
+        self.nli_model = None
+        if use_external_nli:
+            try:
+                # Try to import a lightweight NLI model
+                # This is optional and only used if available
+                import torch
+                from transformers import AutoModelForSequenceClassification, AutoTokenizer
+                
+                model_name = "cross-encoder/nli-deberta-v3-base"
+                self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+                self.nli_model = AutoModelForSequenceClassification.from_pretrained(model_name)
+                
+                logger.info(f"Initialized NLI model: {model_name}")
+            except (ImportError, Exception) as e:
+                logger.warning(f"Failed to initialize NLI model: {e}")
+                self.use_external_nli = False
     
     def detect_contradictions(self, 
-                            generated_text: str, 
-                            context: Dict[str, Any]) -> List[Dict[str, Any]]:
+                             text: str, 
+                             context: Any) -> List[Dict[str, Any]]:
         """
         Detect contradictions between generated text and knowledge context.
         
         Args:
-            generated_text: LLM-generated text
-            context: Knowledge graph context used for generation
+            text: Generated text
+            context: Knowledge graph context (triples, entities, etc.)
             
         Returns:
             List of detected contradictions
         """
+        # Extract statements from the text
+        statements = self._extract_statements(text)
+        
+        # Extract facts from the context
+        if isinstance(context, dict) and "triples" in context:
+            facts = context["triples"]
+        elif isinstance(context, list):
+            facts = context
+        else:
+            facts = []
+        
+        # Check for contradictions
         contradictions = []
         
-        # Extract statements from generated text
-        statements = self._extract_statements(generated_text)
+        for statement in statements:
+            for fact in facts:
+                conflict = self._check_contradiction(statement, fact)
+                if conflict:
+                    contradictions.append({
+                        "statement": statement,
+                        "conflicting_fact": f"{fact.get('subject', '')} {fact.get('predicate', '')} {fact.get('object', '')}",
+                        "triple_id": fact.get("id", None),
+                        "confidence": conflict[0],
+                        "explanation": conflict[1]
+                    })
         
-        # Check different types of context
-        if "triples" in context:
-            # Check contradictions against triples
-            triple_contradictions = self._check_triple_contradictions(
-                statements, context["triples"]
-            )
-            contradictions.extend(triple_contradictions)
+        # Filter and sort contradictions by confidence
+        filtered_contradictions = [
+            c for c in contradictions 
+            if c["confidence"] >= self.contradiction_threshold
+        ]
         
-        if "entities" in context:
-            # Check contradictions against entities
-            entity_contradictions = self._check_entity_contradictions(
-                statements, context["entities"]
-            )
-            contradictions.extend(entity_contradictions)
+        sorted_contradictions = sorted(
+            filtered_contradictions, 
+            key=lambda x: x["confidence"], 
+            reverse=True
+        )
         
-        return contradictions
+        return sorted_contradictions
     
     def _extract_statements(self, text: str) -> List[str]:
         """
-        Extract individual statements from generated text.
+        Extract factual statements from generated text.
         
         Args:
             text: Generated text
@@ -70,239 +126,251 @@ class ContradictionDetector:
         Returns:
             List of extracted statements
         """
-        # Split text into sentences
+        # Simple sentence-based extraction
+        # In a real implementation, this would use more sophisticated NLP
         sentences = re.split(r'(?<=[.!?])\s+', text)
         
-        # Remove empty sentences
-        statements = [s.strip() for s in sentences if s.strip()]
+        # Filter for likely factual statements
+        factual_statements = []
         
-        return statements
+        for sentence in sentences:
+            # Skip very short sentences
+            if len(sentence.split()) < 3:
+                continue
+                
+            # Skip questions
+            if sentence.endswith('?'):
+                continue
+                
+            # Skip subjective statements
+            subjective_patterns = [
+                r'I think', r'I believe', r'In my opinion', 
+                r'probably', r'might', r'may', r'could',
+                r'seems', r'appears'
+            ]
+            if any(re.search(pattern, sentence, re.IGNORECASE) for pattern in subjective_patterns):
+                continue
+            
+            factual_statements.append(sentence)
+        
+        return factual_statements
     
-    def _check_triple_contradictions(self, 
-                                   statements: List[str], 
-                                   triples: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def _check_contradiction(self, 
+                           statement: str, 
+                           fact: Dict[str, Any]) -> Optional[Tuple[float, str]]:
         """
-        Check for contradictions against knowledge graph triples.
+        Check if a statement contradicts a knowledge graph fact.
         
         Args:
-            statements: Extracted statements from generated text
-            triples: Knowledge graph triples
+            statement: Statement from generated text
+            fact: Fact from knowledge graph
             
         Returns:
-            List of detected contradictions
+            Tuple of (confidence, explanation) if contradiction, None otherwise
         """
-        contradictions = []
+        # Convert fact to natural language form
+        fact_text = f"{fact.get('subject', '')} {fact.get('predicate', '')} {fact.get('object', '')}"
         
-        # Extract subjects from triples for faster lookup
-        triple_subjects = {}
-        triple_predicates = {}
+        # If NLI model is available, use it
+        if self.use_external_nli and self.nli_model:
+            return self._check_contradiction_with_nli(statement, fact_text, fact)
         
-        for triple in triples:
-            subject = triple.get("subject", "").lower()
-            predicate = triple.get("predicate", "").lower()
-            obj = triple.get("object", "").lower()
-            
-            # Index by subject
-            if subject not in triple_subjects:
-                triple_subjects[subject] = []
-            triple_subjects[subject].append((predicate, obj, triple))
-            
-            # Index by predicate
-            if predicate not in triple_predicates:
-                triple_predicates[predicate] = []
-            triple_predicates[predicate].append((subject, obj, triple))
-        
-        # Check each statement for potential contradictions
-        for statement in statements:
-            # Lowercase for case-insensitive matching
-            statement_lower = statement.lower()
-            
-            # Check for matches with triple subjects
-            for subject, subject_triples in triple_subjects.items():
-                if subject in statement_lower:
-                    # Subject match found, check for predicate and object
-                    for predicate, obj, triple in subject_triples:
-                        if predicate in statement_lower:
-                            # Negative check - look for statements that negate the triple
-                            # For example, "X is not Y" contradicts "X is Y"
-                            negation_patterns = [
-                                f"{subject} is not {obj}",
-                                f"{subject} isn't {obj}",
-                                f"{subject} doesn't {predicate}",
-                                f"{subject} does not {predicate}",
-                                f"{subject} never {predicate}",
-                                f"not {predicate} {obj}"
-                            ]
-                            
-                            for pattern in negation_patterns:
-                                if pattern in statement_lower:
-                                    # Found a contradiction
-                                    contradictions.append({
-                                        "statement": statement,
-                                        "conflicting_fact": f"{subject} {predicate} {obj}",
-                                        "triple": triple,
-                                        "contradiction_type": "negation"
-                                    })
-                            
-                            # Alternative value check
-                            # For example, "X is Z" contradicts "X is Y" if Z ≠ Y
-                            match = re.search(f"{subject} {predicate} ([^.!?]+)", statement_lower)
-                            if match:
-                                stated_obj = match.group(1).strip()
-                                
-                                # Check if the stated object differs from the known object
-                                if stated_obj != obj and not self._is_compatible(stated_obj, obj):
-                                    contradictions.append({
-                                        "statement": statement,
-                                        "conflicting_fact": f"{subject} {predicate} {obj}",
-                                        "stated_value": stated_obj,
-                                        "triple": triple,
-                                        "contradiction_type": "alternative_value"
-                                    })
-        
-        return contradictions
+        # Otherwise, use rule-based detection
+        return self._check_contradiction_rule_based(statement, fact)
     
-    def _check_entity_contradictions(self, 
-                                  statements: List[str], 
-                                  entities: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def _check_contradiction_with_nli(self, 
+                                    statement: str, 
+                                    fact_text: str,
+                                    fact: Dict[str, Any]) -> Optional[Tuple[float, str]]:
         """
-        Check for contradictions against entity information.
+        Check for contradiction using Natural Language Inference model.
         
         Args:
-            statements: Extracted statements from generated text
-            entities: Entity information
+            statement: Statement from generated text
+            fact_text: Fact text
+            fact: Original fact dictionary
             
         Returns:
-            List of detected contradictions
-        """
-        contradictions = []
-        
-        # Index entities by ID for faster lookup
-        entity_map = {entity.get("id", "").lower(): entity for entity in entities}
-        
-        # Check each statement for potential contradictions
-        for statement in statements:
-            # Lowercase for case-insensitive matching
-            statement_lower = statement.lower()
-            
-            # Check for matches with entity IDs
-            for entity_id, entity in entity_map.items():
-                if entity_id in statement_lower:
-                    # Entity match found, check properties
-                    properties = entity.get("properties", {})
-                    
-                    for prop_name, prop_value in properties.items():
-                        prop_name_lower = prop_name.lower()
-                        prop_value_lower = str(prop_value).lower()
-                        
-                        if prop_name_lower in statement_lower:
-                            # Negative check
-                            negation_patterns = [
-                                f"{entity_id} does not have {prop_name_lower}",
-                                f"{entity_id} doesn't have {prop_name_lower}",
-                                f"{entity_id} has no {prop_name_lower}",
-                                f"{prop_name_lower} of {entity_id} is not {prop_value_lower}",
-                                f"{prop_name_lower} of {entity_id} isn't {prop_value_lower}"
-                            ]
-                            
-                            for pattern in negation_patterns:
-                                if pattern in statement_lower:
-                                    # Found a contradiction
-                                    contradictions.append({
-                                        "statement": statement,
-                                        "conflicting_fact": f"{entity_id} has {prop_name} = {prop_value}",
-                                        "entity": entity,
-                                        "property": prop_name,
-                                        "contradiction_type": "property_negation"
-                                    })
-                            
-                            # Alternative value check
-                            match = re.search(f"{prop_name_lower} of {entity_id} is ([^.!?]+)", statement_lower)
-                            if not match:
-                                match = re.search(f"{entity_id} has {prop_name_lower} ([^.!?]+)", statement_lower)
-                                
-                            if match:
-                                stated_value = match.group(1).strip()
-                                
-                                # Check if the stated value differs from the known value
-                                if stated_value != prop_value_lower and not self._is_compatible(stated_value, prop_value_lower):
-                                    contradictions.append({
-                                        "statement": statement,
-                                        "conflicting_fact": f"{entity_id} has {prop_name} = {prop_value}",
-                                        "stated_value": stated_value,
-                                        "entity": entity,
-                                        "property": prop_name,
-                                        "contradiction_type": "property_alternative_value"
-                                    })
-        
-        return contradictions
-    
-    def _is_compatible(self, value1: str, value2: str) -> bool:
-        """
-        Check if two values are semantically compatible.
-        
-        Args:
-            value1: First value
-            value2: Second value
-            
-        Returns:
-            True if values are compatible, False otherwise
-        """
-        # Normalize for comparison
-        v1 = value1.strip().lower()
-        v2 = value2.strip().lower()
-        
-        # Check for exact match
-        if v1 == v2:
-            return True
-        
-        # Check for numeric equivalence
-        if self._is_numeric(v1) and self._is_numeric(v2):
-            try:
-                n1 = float(v1)
-                n2 = float(v2)
-                # Allow small differences for numeric values
-                return abs(n1 - n2) < 0.001
-            except ValueError:
-                pass
-        
-        # Check for substring relationship
-        if v1 in v2 or v2 in v1:
-            return True
-        
-        # Check for common aliases and abbreviations
-        # This is a simplified example - would need to be expanded
-        # based on domain-specific knowledge
-        aliases = {
-            "united states": ["us", "usa", "u.s.", "u.s.a."],
-            "united kingdom": ["uk", "u.k.", "britain", "great britain"],
-            # Add more aliases as needed
-        }
-        
-        # Check if the values are aliases of each other
-        for term, alias_list in aliases.items():
-            if v1 == term and v2 in alias_list:
-                return True
-            if v2 == term and v1 in alias_list:
-                return True
-            if v1 in alias_list and v2 in alias_list:
-                return True
-        
-        # Default to not compatible
-        return False
-    
-    def _is_numeric(self, value: str) -> bool:
-        """
-        Check if a value is numeric.
-        
-        Args:
-            value: Value to check
-            
-        Returns:
-            True if value is numeric, False otherwise
+            Tuple of (confidence, explanation) if contradiction, None otherwise
         """
         try:
-            float(value)
-            return True
-        except ValueError:
-            return False
+            # Tokenize inputs
+            inputs = self.tokenizer(
+                fact_text, 
+                statement, 
+                padding=True, 
+                truncation=True, 
+                return_tensors="pt"
+            )
+            
+            # Get prediction
+            import torch
+            with torch.no_grad():
+                outputs = self.nli_model(**inputs)
+                predictions = torch.softmax(outputs.logits, dim=1)
+            
+            # Get contradiction score
+            # Typical NLI labels: [entailment, neutral, contradiction]
+            contradiction_idx = 2
+            contradiction_score = predictions[0, contradiction_idx].item()
+            
+            if contradiction_score > self.contradiction_threshold:
+                return (
+                    contradiction_score,
+                    f"NLI model detected contradiction between statement and fact with confidence {contradiction_score:.2f}"
+                )
+            
+            return None
+            
+        except Exception as e:
+            logger.warning(f"Error in NLI contradiction detection: {e}")
+            # Fall back to rule-based method
+            return self._check_contradiction_rule_based(statement, fact)
+    
+    def _check_contradiction_rule_based(self, 
+                                      statement: str, 
+                                      fact: Dict[str, Any]) -> Optional[Tuple[float, str]]:
+        """
+        Check for contradiction using rule-based methods.
+        
+        Args:
+            statement: Statement from generated text
+            fact: Fact from knowledge graph
+            
+        Returns:
+            Tuple of (confidence, explanation) if contradiction, None otherwise
+        """
+        # Extract key elements from fact
+        subject = fact.get('subject', '').lower()
+        predicate = fact.get('predicate', '').lower()
+        obj = fact.get('object', '').lower()
+        
+        # Skip facts with low confidence
+        if float(fact.get('confidence', 1.0)) < 0.5:
+            return None
+        
+        # Check for negation contradictions
+        statement_lower = statement.lower()
+        
+        # Simple negation patterns
+        negation_prefixes = ['not ', 'never ', 'no ', 'doesn\'t ', 'don\'t ', 'didn\'t ', 'isn\'t ', 'aren\'t ', 'wasn\'t ', 'weren\'t ']
+        
+        # Format the fact for pattern matching
+        fact_pattern = f"{subject} {predicate} {obj}"
+        negated_fact_pattern = None
+        
+        for prefix in negation_prefixes:
+            if f"{subject} {prefix}{predicate} {obj}" in statement_lower:
+                # Direct negation found
+                return (0.85, f"Statement contains negated form of the fact")
+            
+            # Also check for negation in middle (e.g., "X is not Y")
+            if f"{subject} is {prefix}" in statement_lower and obj in statement_lower:
+                return (0.80, f"Statement contains negated relationship with subject and object")
+        
+        # Check for contradictory values
+        # E.g., if fact is "X height 180cm" and statement says "X height 190cm"
+        if all(term in statement_lower for term in [subject, predicate]):
+            # Subject and predicate are mentioned, but different object value
+            if obj not in statement_lower:
+                # Extract potential contradictory value
+                after_predicate = statement_lower.split(predicate, 1)[1].strip()
+                words = after_predicate.split()
+                
+                # Check if we find a different value
+                if len(words) > 0:
+                    potential_value = words[0]
+                    if potential_value != obj and re.match(r'\w+', potential_value):
+                        return (0.75, f"Statement uses different value ({potential_value}) than fact ({obj})")
+        
+        # Check for temporal contradictions
+        if predicate in ['occurred_on', 'happened_on', 'date', 'time', 'on', 'at']:
+            # Extract dates from statement
+            date_patterns = [
+                r'\b\d{4}-\d{2}-\d{2}\b',  # YYYY-MM-DD
+                r'\b\d{1,2}/\d{1,2}/\d{2,4}\b',  # MM/DD/YYYY or DD/MM/YYYY
+                r'\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{1,2},? \d{4}\b'  # Month DD, YYYY
+            ]
+            
+            dates_in_statement = []
+            for pattern in date_patterns:
+                dates_in_statement.extend(re.findall(pattern, statement, re.IGNORECASE))
+            
+            # If statement has a date and it's different from the fact
+            if dates_in_statement and not any(obj in date for date in dates_in_statement):
+                return (0.80, f"Statement mentions different date ({dates_in_statement[0]}) than fact ({obj})")
+        
+        # No contradiction detected
+        return None
+    
+    def check_response_factuality(self, 
+                                 response: str, 
+                                 facts: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Perform comprehensive factuality checking on a response.
+        
+        Args:
+            response: Generated response text
+            facts: Knowledge graph facts used as context
+            
+        Returns:
+            Factuality assessment
+        """
+        # Detect contradictions
+        contradictions = self.detect_contradictions(response, facts)
+        
+        # Calculate overall factuality score
+        if contradictions:
+            # More contradictions = lower factuality
+            factuality_score = max(0.0, 1.0 - (sum(c["confidence"] for c in contradictions) / len(contradictions)) * 0.5)
+        else:
+            factuality_score = 1.0
+        
+        # Assess grounding - how many facts are actually reflected in the response
+        grounding_score = self._assess_grounding(response, facts)
+        
+        return {
+            "factuality_score": factuality_score,
+            "grounding_score": grounding_score,
+            "contradictions": contradictions,
+            "contradiction_count": len(contradictions)
+        }
+    
+    def _assess_grounding(self, 
+                        response: str, 
+                        facts: List[Dict[str, Any]]) -> float:
+        """
+        Assess how well the response is grounded in the provided facts.
+        
+        Args:
+            response: Generated response text
+            facts: Knowledge graph facts used as context
+            
+        Returns:
+            Grounding score (0.0 to 1.0)
+        """
+        fact_mentions = 0
+        response_lower = response.lower()
+        
+        for fact in facts:
+            subject = fact.get('subject', '').lower()
+            predicate = fact.get('predicate', '').lower()
+            obj = fact.get('object', '').lower()
+            
+            # Check if all parts of the fact are mentioned
+            if subject in response_lower and obj in response_lower:
+                fact_mentions += 1
+            
+            # Check for naturalized mentions
+            # E.g., "X happened on Y" might be expressed as "On Y, X occurred"
+            if predicate in ['occurred_on', 'happened_on', 'on', 'at'] and subject in response_lower and obj in response_lower:
+                for pattern in [f"on {obj}", f"in {obj}", f"at {obj}", f"{obj},", f"{obj} when"]:
+                    if pattern in response_lower:
+                        fact_mentions += 0.5
+                        break
+        
+        # Calculate grounding score
+        if not facts:
+            return 0.0
+        
+        return min(1.0, fact_mentions / len(facts))

@@ -6,7 +6,7 @@ from reflexive_composition.utils.llm_utils import log_result
 from prompt_templates import WITH_CONTEXT_TEMPLATE, NO_CONTEXT_TEMPLATE
 
 
-def run_single_query(query: Optional[str] = None, grounded: bool = True, template: Optional[str] = None):
+def run_single_query(query: Optional[str] = None, grounded: bool = True, interactive: bool = True, template: Optional[str] = None):
     print("\n=== Medical QA Case Study: FHIR + RxNorm Grounding ===\n")
 
     # --- Configuration ---
@@ -50,15 +50,15 @@ def run_single_query(query: Optional[str] = None, grounded: bool = True, templat
         source_text = f.read()
 
     # --- Extract and validate knowledge ---
-    extraction_result = rc.extract_knowledge(source_text)
-    rc.knowledge_graph.add_triples(extraction_result["triples"])
+    extraction_result = rc.extract_knowledge(source_text, interactive=interactive)
+    rc.kg.add_triples(extraction_result["triples"])
 
     # --- Add RxNorm enrichment ---
     rx_path = os.path.join(os.path.dirname(__file__), "data", "synthetic_rxnorm_triples.json")
     if os.path.exists(rx_path):
         with open(rx_path, "r") as f:
             rx_triples = json.load(f)
-            rc.knowledge_graph.add_triples(rx_triples)
+            rc.kg.add_triples(rx_triples)
 
     # --- User Query ---
     user_query = query or "Is this patient currently on a blood pressure medication?"
@@ -86,7 +86,10 @@ if __name__ == "__main__":
     parser.add_argument("--query-file", type=str, help="Path to .jsonl file of queries")
     parser.add_argument("--grounded", action="store_true", default=True, help="Use grounded context (default: True)")
     parser.add_argument("--no-grounded", dest="grounded", action="store_false", help="Disable grounding")
+    parser.add_argument("--no-hitl", action="store_true", help="Disable manual HITL validation prompts")
     args = parser.parse_args()
+
+    interactive = not args.no_hitl  # define the variable before use
 
     if args.query_file:
         with open(args.query_file) as f:
@@ -95,11 +98,13 @@ if __name__ == "__main__":
                 run_single_query(
                     query=q["query"],
                     grounded=args.grounded,
+                    interactive=interactive,
                     template=WITH_CONTEXT_TEMPLATE if args.grounded else NO_CONTEXT_TEMPLATE
                 )
     else:
         run_single_query(
             query=args.query or "Is this patient currently on a blood pressure medication?",
             grounded=args.grounded,
+            interactive=interactive,
             template=WITH_CONTEXT_TEMPLATE if args.grounded else NO_CONTEXT_TEMPLATE
         )

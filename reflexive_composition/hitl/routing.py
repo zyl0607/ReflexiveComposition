@@ -56,10 +56,11 @@ class ValidationRouter:
                 worker.start()
                 self.workers.append(worker)
     
-    def route_validation(self, 
+    def route_validation(self,
                        validator_type: str, 
                        context: Dict[str, Any],
-                       interface: Any) -> Dict[str, Any]:
+                       interface: Any,
+                       interactive: bool = True) -> Dict[str, Any]:
         """
         Route a validation task to the appropriate validator.
         
@@ -74,16 +75,16 @@ class ValidationRouter:
         # Check if we have a specific validator for this type
         if validator_type in self.validators:
             return self._present_to_validator(
-                self.validators[validator_type], context, interface
+                self.validators[validator_type], context, interface, interactive=interactive
             )
         
         # Otherwise, handle based on validator type
         if validator_type == "general":
-            return self._handle_general_validation(context, interface)
+            return self._handle_general_validation(context, interface, interactive=interactive)
         elif validator_type == "schema":
             return self._handle_schema_validation(context, interface)
         elif validator_type == "contradiction":
-            return self._handle_contradiction_validation(context, interface)
+            return self._handle_contradiction_validation(context, interface, interactive=interactive)
         elif validator_type == "response":
             return self._handle_response_validation(context, interface)
         else:
@@ -205,10 +206,11 @@ class ValidationRouter:
             # If we checked all queues and found nothing, sleep briefly
             time.sleep(0.1)
     
-    def _present_to_validator(self, 
-                            validator_func: Callable, 
-                            context: Dict[str, Any],
-                            interface: Any) -> Dict[str, Any]:
+    def _present_to_validator(self,
+                              validator_func: Callable, 
+                              context: Dict[str, Any],
+                              interface: Any,
+                              interactive: bool = True) -> Dict[str, Any]:
         """
         Present a validation task to a validator function.
         
@@ -221,7 +223,7 @@ class ValidationRouter:
             Validation result
         """
         try:
-            return validator_func(context, interface)
+            return validator_func(context, interface, interactive=interactive)
         except Exception as e:
             logger.error(f"Error in validator function: {e}")
             return {
@@ -232,7 +234,8 @@ class ValidationRouter:
     
     def _handle_general_validation(self, 
                                  context: Dict[str, Any],
-                                 interface: Any) -> Dict[str, Any]:
+                                 interface: Any,
+                                 interactive: bool = True) -> Dict[str, Any]:
         """
         Handle general validation tasks.
         
@@ -245,7 +248,7 @@ class ValidationRouter:
         """
         # Check if we're validating a triple
         if "triple" in context:
-            return interface.present_triple_validation(context)
+            return interface.present_triple_validation(context, interactive=interactive)
         
         # Otherwise, default behavior
         logger.warning("General validation with unknown context structure")
@@ -272,7 +275,8 @@ class ValidationRouter:
     
     def _handle_contradiction_validation(self, 
                                        context: Dict[str, Any],
-                                       interface: Any) -> Dict[str, Any]:
+                                       interface: Any,
+                                       interactive: bool = True) -> Dict[str, Any]:
         """
         Handle contradiction validation tasks.
         
@@ -290,7 +294,7 @@ class ValidationRouter:
             contradiction = context["contradiction"]
             context_with_contradiction["contradiction_details"] = contradiction
         
-        return interface.present_triple_validation(context_with_contradiction)
+        return interface.present_triple_validation(context_with_contradiction, interactive=interactive)
     
     def _handle_response_validation(self, 
                                   context: Dict[str, Any],
