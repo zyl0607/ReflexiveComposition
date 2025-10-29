@@ -8,6 +8,7 @@ using knowledge graph context.
 
 import logging
 import json
+import os
 from typing import Dict, List, Any, Optional, Union, Tuple
 from reflexive_composition.utils.llm_utils import extract_text, attach_prompt_stats
 
@@ -66,8 +67,17 @@ class TargetLLM:
         if self.model_provider == "openai":
             try:
                 import openai
-                openai.api_key = self.api_key
-                return openai
+                # Support new OpenAI API structure
+                if hasattr(openai, 'OpenAI'):
+                    client = openai.OpenAI(
+                        api_key=self.api_key,
+                        base_url=os.environ.get("OPENAI_BASE_URL", None)
+                    )
+                    return client
+                else:
+                    # Old API structure
+                    openai.api_key = self.api_key
+                    return openai
             except ImportError:
                 logger.error("OpenAI package not found. Please install with 'pip install openai'")
                 raise
@@ -178,7 +188,7 @@ class TargetLLM:
     
     def _generate_with_openai(self, prompt: str) -> Any:
         """
-        Generate text using OpenAI's API.
+        Generate text using OpenAI's API (compatible with OpenAI >= 1.0.0 and Qwen).
         
         Args:
             prompt: The prompt to send to the LLM
@@ -186,14 +196,37 @@ class TargetLLM:
         Returns:
             OpenAI API response
         """
-        response = self.llm_client.ChatCompletion.create(
-            model=self.model_name,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=self.max_tokens,
-            temperature=self.temperature
-        )
-        
-        return response
+        # Support both old and new OpenAI API
+        try:
+            # New API (OpenAI >= 1.0.0 and Qwen)
+            if hasattr(self.llm_client, 'chat') and hasattr(self.llm_client.chat, 'completions'):
+                response = self.llm_client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=self.max_tokens,
+                    temperature=self.temperature
+                )
+                return response
+            else:
+                # Old API (OpenAI < 1.0.0)
+                response = self.llm_client.ChatCompletion.create(
+                    model=self.model_name,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=self.max_tokens,
+                    temperature=self.temperature
+                )
+                return response
+        except AttributeError:
+            # Fallback to new API structure
+            from openai import OpenAI
+            client = OpenAI(api_key=self.api_key)
+            response = client.chat.completions.create(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=self.max_tokens,
+                temperature=self.temperature
+            )
+            return response
     
     def _generate_with_anthropic(self, prompt: str) -> Any:
         """
@@ -279,7 +312,14 @@ class TargetLLM:
         """
         if self.model_provider == "openai":
             try:
-                return llm_response.choices[0].message.content
+                # Support both old and new OpenAI API response formats
+                if hasattr(llm_response, 'choices') and llm_response.choices:
+                    if hasattr(llm_response.choices[0], 'message'):
+                        return llm_response.choices[0].message.content
+                    else:
+                        return llm_response.choices[0].content
+                else:
+                    return str(llm_response)
             except (AttributeError, IndexError):
                 logger.warning("Could not extract text from OpenAI response using standard format")
                 return str(llm_response)

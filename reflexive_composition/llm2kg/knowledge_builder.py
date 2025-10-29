@@ -9,6 +9,7 @@ from unstructured text, guided by a schema.
 import json
 import re
 import logging
+import os
 from typing import Dict, List, Optional, Any, Union, Callable
 
 logger = logging.getLogger(__name__)
@@ -102,8 +103,17 @@ class KnowledgeBuilderLLM:
         if self.model_provider == "openai":
             try:
                 import openai
-                openai.api_key = self.api_key
-                return openai
+                # Support new OpenAI API structure
+                if hasattr(openai, 'OpenAI'):
+                    client = openai.OpenAI(
+                        api_key=self.api_key,
+                        base_url=os.environ.get("OPENAI_BASE_URL", None)
+                    )
+                    return client
+                else:
+                    # Old API structure
+                    openai.api_key = self.api_key
+                    return openai
             except ImportError:
                 logger.error("OpenAI package not found. Please install with 'pip install openai'")
                 raise
@@ -201,13 +211,25 @@ class KnowledgeBuilderLLM:
         """
         try:
             if self.model_provider == "openai":
-                response = self.llm_client.ChatCompletion.create(
-                    model=self.model_name,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=self.max_tokens,
-                    temperature=self.temperature
-                )
-                return response.choices[0].message.content
+                # Support both old and new OpenAI API
+                if hasattr(self.llm_client, 'chat') and hasattr(self.llm_client.chat, 'completions'):
+                    # New API (OpenAI >= 1.0.0 and Qwen)
+                    response = self.llm_client.chat.completions.create(
+                        model=self.model_name,
+                        messages=[{"role": "user", "content": prompt}],
+                        max_tokens=self.max_tokens,
+                        temperature=self.temperature
+                    )
+                    return response.choices[0].message.content
+                else:
+                    # Old API
+                    response = self.llm_client.ChatCompletion.create(
+                        model=self.model_name,
+                        messages=[{"role": "user", "content": prompt}],
+                        max_tokens=self.max_tokens,
+                        temperature=self.temperature
+                    )
+                    return response.choices[0].message.content
             
             elif self.model_provider == "anthropic":
                 response = self.llm_client.completions.create(

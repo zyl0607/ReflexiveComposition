@@ -28,15 +28,15 @@ def main():
     
     # Set up configuration
     kb_llm_config = {
-        "model_name": os.environ.get("KB_LLM_MODEL", "gemini-2.0-flash"),
-        "api_key": os.environ.get("GEMINI_API_KEY"),
-        "model_provider": "google",
+        "model_name": os.environ.get("KB_LLM_MODEL", "qwen-turbo"),
+        "api_key": os.environ.get("OPENAI_API_KEY"),
+        "model_provider": "openai",
     }
     
     target_llm_config = {
-        "model_name": os.environ.get("TARGET_LLM_MODEL", "gemini-2.0-flash"),
-        "api_key": os.environ.get("GOOGLE_API_KEY"),
-        "model_provider": "google"
+        "model_name": os.environ.get("TARGET_LLM_MODEL", "qwen-turbo"),
+        "api_key": os.environ.get("OPENAI_API_KEY"),
+        "model_provider": "openai"
     }
     
     kg_config = {
